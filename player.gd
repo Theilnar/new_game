@@ -139,6 +139,8 @@ const AIM_SIDE_DEADZONE := 4.0
 var ledge_testing = false
 var health = 100
 var gold = 0
+var is_dead := false
+var death_restart_requested := false
 var state_machine_info # для вывода состояния
 
 var box_push_x = 1
@@ -429,6 +431,9 @@ func _play_surfacing_sfx() -> void:
 	_climb_player.play()
 		
 func _physics_process(delta: float) -> void:
+	if is_dead:
+		return
+
 	update_weapon_aim()
 	_update_sfx_timers(delta)
 	# --- ОБРАБОТКА ТАЙМЕРОВ НЫРЯНИЯ ---
@@ -526,8 +531,8 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 
 	if health <= 0:
-		queue_free()
-		get_tree().change_scene_to_file("res://box_push.tscn")
+		_enter_death_state()
+		return
 
 	move_and_slide()
 	if velocity.x != 0 or velocity.y != 0:
@@ -1071,6 +1076,50 @@ func on_damage():
 func _on_hit_box_area_entered(_area: Area2D) -> void:
 	Signals.emit_signal('player_attack', damage_current)
 
+func _enter_death_state() -> void:
+	if is_dead:
+		return
+	is_dead = true
+	velocity = Vector2.ZERO
+	weapon.force_stop_shooting()
+	weapon.visible = false
+	_create_death_screen()
+
+
+func _create_death_screen() -> void:
+	var death_layer := CanvasLayer.new()
+	death_layer.name = "DeathScreen"
+	death_layer.layer = 100
+	death_layer.process_mode = Node.PROCESS_MODE_ALWAYS
+	get_tree().current_scene.add_child(death_layer)
+
+	var backdrop := ColorRect.new()
+	backdrop.color = Color(0.015, 0.02, 0.025, 0.82)
+	backdrop.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	backdrop.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	death_layer.add_child(backdrop)
+
+	var center := CenterContainer.new()
+	center.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	death_layer.add_child(center)
+
+	var message := Label.new()
+	message.text = "МЁРТ\nНажмите любую клавишу"
+	message.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	message.add_theme_font_size_override("font_size", 34)
+	message.add_theme_color_override("font_color", Color(0.9, 0.82, 0.68, 1.0))
+	message.add_theme_color_override("font_outline_color", Color(0.05, 0.03, 0.02, 1.0))
+	message.add_theme_constant_override("outline_size", 8)
+	center.add_child(message)
+
+
+func _restart_after_death() -> void:
+	if death_restart_requested:
+		return
+	death_restart_requested = true
+	get_tree().reload_current_scene()
+
 func _on_ledge_descent_right_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Platform"):
 		descent_ledge_right = true
@@ -1221,6 +1270,10 @@ func can_player_shoot() -> bool:
 	return true
 	
 func _input(event):
+	if is_dead:
+		if (event is InputEventKey or event is InputEventMouseButton) and event.pressed:
+			_restart_after_death()
+		return
 
 	if event.is_action_pressed("shoot"):
 

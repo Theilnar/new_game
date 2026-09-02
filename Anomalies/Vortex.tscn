@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://djrwpooe4bhh4" path="res://Anomalies/vortex.gd" id="1_script"]
 [ext_resource type="Shader" uid="uid://buc7xxx34ler5" path="res://Anomalies/vortex.gdshader" id="2_shader"]
-[ext_resource type="Texture2D" uid="uid://c8c7t2fuykfgh" path="res://Sprites/test/particle.png" id="3_particle"]
-[ext_resource type="AudioStream" path="res://Scene/0001.mp3" id="4_ambient"]
-[ext_resource type="AudioStream" path="res://sound/0002.wav" id="5_hit"]
-[ext_resource type="AudioStream" path="res://sound/boom-shoot2.mp3" id="6_collapse"]
-[ext_resource type="AudioStream" path="res://sound/boom-shoot.mp3" id="7_appear"]
+[ext_resource type="Texture2D" uid="uid://dswudo4y2ess5" path="res://weapons/particle.png" id="3_3xwp6"]
+[ext_resource type="AudioStream" uid="uid://c3yragekgfmut" path="res://Anomalies/sounds/anomaly_gravy_idle.mp3" id="4_3xwp6"]
+[ext_resource type="AudioStream" uid="uid://dumm0ta7bqk06" path="res://Anomalies/sounds/anomaly_mincer_blowout.mp3" id="5_785j2"]
+[ext_resource type="AudioStream" uid="uid://dtk7lak0yjoxu" path="res://Anomalies/sounds/anomaly_gravy_hit1.mp3" id="6_3xwp6"]
+[ext_resource type="AudioStream" uid="uid://dbm2t7pxy4j3h" path="res://Anomalies/sounds/anomaly_gravy_blast1.mp3" id="7_785j2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vortex"]
 shader = ExtResource("2_shader")
@@ -64,10 +64,9 @@ texture = SubResource("GradientTexture2D_vortex")
 
 [node name="DustParticles" type="GPUParticles2D" parent="."]
 z_index = 5
-amount = 24
-texture = ExtResource("3_particle")
+amount = 36
+texture = ExtResource("3_3xwp6")
 lifetime = 2.8
-emitting = true
 preprocess = 1.5
 randomness = 0.8
 process_material = SubResource("ParticleProcessMaterial_dust")
@@ -76,25 +75,25 @@ process_material = SubResource("ParticleProcessMaterial_dust")
 shape = SubResource("CircleShape2D_vortex")
 
 [node name="AmbientSound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("4_ambient")
+stream = ExtResource("4_3xwp6")
 volume_db = -20.0
 max_distance = 500.0
 attenuation = 2.0
 
 [node name="HitSound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("5_hit")
+stream = ExtResource("6_3xwp6")
 volume_db = -8.0
 max_distance = 650.0
 attenuation = 1.4
 
 [node name="CollapseSound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("6_collapse")
+stream = ExtResource("5_785j2")
 volume_db = -10.0
 max_distance = 850.0
 attenuation = 1.4
 
 [node name="AppearSound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("7_appear")
+stream = ExtResource("7_785j2")
 volume_db = -12.0
 max_distance = 700.0
 attenuation = 1.5
