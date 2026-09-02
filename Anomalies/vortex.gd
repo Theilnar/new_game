@@ -13,6 +13,10 @@ enum AnomalyMode { VORTEX, SPRINGBOARD }
 @onready var visual: Sprite2D = $Visual
 @onready var core: Sprite2D = $Core
 @onready var particles: GPUParticles2D = $DustParticles
+@onready var ambient_sound: AudioStreamPlayer2D = $AmbientSound
+@onready var hit_sound: AudioStreamPlayer2D = $HitSound
+@onready var collapse_sound: AudioStreamPlayer2D = $CollapseSound
+@onready var appear_sound: AudioStreamPlayer2D = $AppearSound
 
 var triggered := false
 var respawning := false
@@ -23,6 +27,13 @@ const CORE_SCALE := Vector2(0.52, 0.52)
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 	area_entered.connect(_on_area_entered)
+	ambient_sound.finished.connect(_on_ambient_finished)
+	ambient_sound.play()
+
+
+func _on_ambient_finished() -> void:
+	if not respawning and not triggered:
+		ambient_sound.play()
 
 
 func _process(delta: float) -> void:
@@ -36,6 +47,7 @@ func _on_body_entered(body: Node2D) -> void:
 	if triggered:
 		return
 	if body.is_in_group("projectile") or body.name == "Bullet":
+		hit_sound.play()
 		body.queue_free()
 		collapse()
 		return
@@ -47,6 +59,7 @@ func _on_area_entered(area: Area2D) -> void:
 	if triggered:
 		return
 	if area.is_in_group("projectile") or area.name == "Bullet":
+		hit_sound.play()
 		area.queue_free()
 		collapse()
 
@@ -83,6 +96,8 @@ func collapse() -> void:
 	respawning = true
 	monitoring = false
 	particles.emitting = false
+	ambient_sound.stop()
+	collapse_sound.play()
 
 	var tween := create_tween()
 	tween.set_parallel(true)
@@ -101,6 +116,8 @@ func collapse() -> void:
 	visible = true
 	particles.emitting = true
 	particles.restart()
+	appear_sound.play()
+	ambient_sound.play()
 
 	var respawn_tween := create_tween()
 	respawn_tween.set_parallel(true)
