@@ -1,7 +1,7 @@
 extends Node2D
 
 @export_category("Night")
-@export var darkness_color := Color(0.075, 0.095, 0.13, 1.0)
+@export var darkness_color := Color(0.18, 0.20, 0.25, 1.0)
 
 @export_category("Glow")
 @export var glow_enabled := true
