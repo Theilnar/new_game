@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=3 uid="uid://cgrjjmqftw0bg"]
+
+[ext_resource type="Script" uid="uid://20mkchgrcanc" path="res://Environment/grass.gd" id="1_l66qs"]
+[ext_resource type="Material" uid="uid://ckw78bjysr2pf" path="res://grass.tres" id="2_6tm82"]
+[ext_resource type="Texture2D" uid="uid://bc0boo7vsh3a2" path="res://Sprites/background/grass01.png" id="2_fht5l"]
+[ext_resource type="Texture2D" uid="uid://csabe6x7chpvd" path="res://Sprites/Light/circle.png" id="4_p4lif"]
+[ext_resource type="Script" uid="uid://soisqlpspvin" path="res://Environment/point_light_2d.gd" id="5_5cdjr"]
+[ext_resource type="Texture2D" uid="uid://cn1f6kj7ewds3" path="res://Sprites/other/forest.png" id="6_in6si"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_av8h3"]
+size = Vector2(42, 15)
+
+[node name="Grass" type="Node2D"]
+z_index = 5
+script = ExtResource("1_l66qs")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = ExtResource("2_6tm82")
+position = Vector2(0, 1)
+scale = Vector2(0.723837, 0.723837)
+texture = ExtResource("2_fht5l")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1, 8.5)
+shape = SubResource("RectangleShape2D_av8h3")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+visible = false
+position = Vector2(9.999985, 1.5258789e-05)
+scale = Vector2(0.3875, 0.3875)
+energy = 2.37
+texture = ExtResource("4_p4lif")
+script = ExtResource("5_5cdjr")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+sub_emitter = NodePath(".")
+texture = ExtResource("6_in6si")
+lifetime = 6.63
+interp_to_end = 0.07
+preprocess = 1.19
+
+[node name="Line2D" type="Line2D" parent="."]
+visible = false
+position = Vector2(9.536743e-07, 9.094947e-13)
+scale = Vector2(0.99999994, 0.99999994)
+points = PackedVector2Array(-51, 6, 72, -11, 136, -63)
+width = 3.0
+default_color = Color(0.7991263, 0.0004994047, 0.7991209, 1)
+antialiased = true
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

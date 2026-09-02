@@ -1,0 +1,68 @@
+[gd_scene load_steps=8 format=3 uid="uid://c3x16tc7hd5f7"]
+
+[ext_resource type="Script" path="res://character_body_2d.gd" id="1_mc1b2"]
+[ext_resource type="Texture2D" uid="uid://cqb1nvc1kp2xt" path="res://icon.svg" id="2_4y6fg"]
+[ext_resource type="Script" path="res://rigid_body_2d.gd" id="3_mvlok"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2kd3r"]
+size = Vector2(124, 125)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2n0us"]
+size = Vector2(1292, 20)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dnvcr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bog6t"]
+size = Vector2(125, 127)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+position = Vector2(181, 295)
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_mc1b2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(-1, 0.5)
+shape = SubResource("RectangleShape2D_2kd3r")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+texture = ExtResource("2_4y6fg")
+
+[node name="Node2D3" type="Node2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Node2D3"]
+collision_mask = 7
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Node2D3/StaticBody2D"]
+light_mask = 3
+visibility_layer = 3
+position = Vector2(594, 587)
+shape = SubResource("RectangleShape2D_2n0us")
+
+[node name="ColorRect" type="ColorRect" parent="Node2D3/StaticBody2D/CollisionShape2D2"]
+offset_left = -617.0
+offset_top = -9.0
+offset_right = 575.0
+offset_bottom = 31.0
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="RigidBody2D" type="RigidBody2D" parent="Node2D"]
+disable_mode = 2
+collision_layer = 4
+collision_mask = 7
+mass = 73.098
+physics_material_override = SubResource("PhysicsMaterial_dnvcr")
+script = ExtResource("3_mvlok")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/RigidBody2D"]
+position = Vector2(763, 211)
+texture = ExtResource("2_4y6fg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/RigidBody2D"]
+light_mask = 3
+visibility_layer = 3
+position = Vector2(763.5, 210.5)
+shape = SubResource("RectangleShape2D_bog6t")

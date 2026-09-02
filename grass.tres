@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://ckw78bjysr2pf"]
+
+[ext_resource type="Shader" path="res://grass.gdshader" id="1_qh877"]
+
+[resource]
+shader = ExtResource("1_qh877")
+shader_parameter/speed = 1.0
+shader_parameter/minStrength = 0.02
+shader_parameter/maxStrength = 0.237
+shader_parameter/strengthScale = 100.0
+shader_parameter/interval = 5.0
+shader_parameter/detail = 1.0
+shader_parameter/distortion = 0.0
+shader_parameter/heightOffset = 0.0

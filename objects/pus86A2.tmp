@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://cmap4fl5ue0kq"]
+
+[ext_resource type="Texture2D" uid="uid://cnkv7rjn7ibcb" path="res://Sprites/Push/trash_can.png" id="1_8tpn8"]
+[ext_resource type="Script" path="res://objects/push_box.gd" id="1_a2vkk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4fcnf"]
+size = Vector2(50, 49)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_2i24c"]
+a = Vector2(18, -3)
+b = Vector2(-34, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_en0lx"]
+size = Vector2(3, 33)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qg5xd"]
+size = Vector2(3, 33)
+
+[node name="Push_box" type="Node2D"]
+script = ExtResource("1_a2vkk")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_mask = 7
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+scale = Vector2(2.21875, 2.21875)
+texture = ExtResource("1_8tpn8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(1, 8.5)
+shape = SubResource("RectangleShape2D_4fcnf")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(9, -21)
+shape = SubResource("SegmentShape2D_2i24c")
+
+[node name="Area2D" type="Area2D" parent="StaticBody2D"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D/Area2D"]
+position = Vector2(-24.5, 8.5)
+shape = SubResource("RectangleShape2D_en0lx")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D/Area2D"]
+position = Vector2(26.5, 8.5)
+shape = SubResource("RectangleShape2D_qg5xd")
+
+[connection signal="body_entered" from="StaticBody2D/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="StaticBody2D/Area2D" to="." method="_on_area_2d_body_exited"]

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bi31mmst5gt2k"]
+
+[ext_resource type="Texture2D" uid="uid://c8c7t2fuykfgh" path="res://Sprites/test/particle.png" id="1_mn8bb"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1.0000029, 2.0000038)
+scale = Vector2(1.9610887, 2.0512538)
+texture = ExtResource("1_mn8bb")

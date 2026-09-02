@@ -1,0 +1,81 @@
+[gd_scene load_steps=12 format=3 uid="uid://crqn6qpvv4etc"]
+
+[ext_resource type="Script" path="res://Collectbels/gold.gd" id="1_0gxlr"]
+[ext_resource type="Texture2D" uid="uid://cw7c4mynbfyab" path="res://Sprites/test/hero3.png" id="2_d75dk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2ie0d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qot85"]
+atlas = ExtResource("2_d75dk")
+region = Rect2(0, 0, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ujtk7"]
+atlas = ExtResource("2_d75dk")
+region = Rect2(56, 0, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cwqas"]
+atlas = ExtResource("2_d75dk")
+region = Rect2(112, 0, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y1jkn"]
+atlas = ExtResource("2_d75dk")
+region = Rect2(168, 0, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4wm8f"]
+atlas = ExtResource("2_d75dk")
+region = Rect2(224, 0, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_886ey"]
+atlas = ExtResource("2_d75dk")
+region = Rect2(280, 0, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3kcld"]
+atlas = ExtResource("2_d75dk")
+region = Rect2(336, 0, 56, 56)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rphe5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qot85")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ujtk7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cwqas")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y1jkn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4wm8f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_886ey")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3kcld")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}]
+
+[node name="Gold" type="Area2D"]
+collision_mask = 7
+script = ExtResource("1_0gxlr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_2ie0d")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1.19209e-07, 6.82121e-13)
+scale = Vector2(2.69196, 2.69196)
+sprite_frames = SubResource("SpriteFrames_rphe5")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.884512
+flip_h = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

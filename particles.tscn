@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://4886bhi2p8av"]
+
+[ext_resource type="Texture2D" uid="uid://c8c7t2fuykfgh" path="res://Sprites/test/particle.png" id="1_xnif8"]
+[ext_resource type="Texture2D" uid="uid://cqb1nvc1kp2xt" path="res://icon.svg" id="2_1nvrg"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1nvrg"]
+blend_mode = 1
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1nvrg"]
+lifetime_randomness = 0.1
+particle_flag_disable_z = true
+angular_velocity_min = -243.31001
+angular_velocity_max = 168.82999
+radial_velocity_min = -2.2351742e-05
+radial_velocity_max = 172.40997
+gravity = Vector3(0, 98, 0)
+linear_accel_min = -24.830002
+linear_accel_max = 13.0999975
+color = Color(0.8061866, 0.6813542, 0.12163892, 1)
+hue_variation_min = -2.2351742e-08
+hue_variation_max = 0.13999997
+anim_speed_max = 1.43
+
+[node name="Node2D" type="Node2D"]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_1nvrg")
+amount = 30
+texture = ExtResource("1_xnif8")
+lifetime = 4.33
+interp_to_end = 0.02
+preprocess = 1.14
+speed_scale = 5.48
+explosiveness = 0.05
+randomness = 0.15
+trail_enabled = true
+trail_lifetime = 1.76
+process_material = SubResource("ParticleProcessMaterial_1nvrg")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -2
+position = Vector2(4, -8)
+scale = Vector2(0.46163714, 0.446904)
+texture = ExtResource("2_1nvrg")

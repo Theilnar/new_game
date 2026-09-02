@@ -1,0 +1,249 @@
+[gd_scene load_steps=28 format=3 uid="uid://c0t4j11y6jwgr"]
+
+[ext_resource type="Script" uid="uid://d3t831vmq8isk" path="res://FlyingInsect/flying_insect.gd" id="1_flying"]
+[ext_resource type="Texture2D" uid="uid://50i6cwns01y8" path="res://FlyingInsect/Gemidhclbj.png" id="3_t2jxw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+radius = 6.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_27uty"]
+atlas = ExtResource("3_t2jxw")
+region = Rect2(0, 410, 204, 180)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n5ond"]
+atlas = ExtResource("3_t2jxw")
+region = Rect2(204, 410, 204, 180)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q224h"]
+atlas = ExtResource("3_t2jxw")
+region = Rect2(408, 410, 204, 180)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y44rc"]
+atlas = ExtResource("3_t2jxw")
+region = Rect2(612, 410, 204, 180)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s4smr"]
+atlas = ExtResource("3_t2jxw")
+region = Rect2(816, 410, 204, 180)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yae5g"]
+atlas = ExtResource("3_t2jxw")
+region = Rect2(510, 680, 170, 170)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ermq2"]
+atlas = ExtResource("3_t2jxw")
+region = Rect2(680, 680, 170, 170)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ptd6c"]
+atlas = ExtResource("3_t2jxw")
+region = Rect2(850, 680, 170, 170)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nd1wc"]
+atlas = ExtResource("3_t2jxw")
+region = Rect2(510, 850, 170, 170)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1dxmi"]
+atlas = ExtResource("3_t2jxw")
+region = Rect2(680, 850, 170, 170)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c0yn6"]
+atlas = ExtResource("3_t2jxw")
+region = Rect2(850, 850, 170, 170)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t2jxw"]
+atlas = ExtResource("3_t2jxw")
+region = Rect2(550, 26, 230, 180)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8537x"]
+atlas = ExtResource("3_t2jxw")
+region = Rect2(780, 26, 230, 180)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qkvg3"]
+atlas = ExtResource("3_t2jxw")
+region = Rect2(550, 206, 230, 180)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m1lhm"]
+atlas = ExtResource("3_t2jxw")
+region = Rect2(780, 206, 230, 180)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_odhcn"]
+atlas = ExtResource("3_t2jxw")
+region = Rect2(8, 32, 230, 180)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wun42"]
+atlas = ExtResource("3_t2jxw")
+region = Rect2(8, 212, 230, 180)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qfgod"]
+atlas = ExtResource("3_t2jxw")
+region = Rect2(238, 32, 230, 180)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t5og4"]
+atlas = ExtResource("3_t2jxw")
+region = Rect2(238, 212, 230, 180)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xyecw"]
+atlas = ExtResource("3_t2jxw")
+region = Rect2(0, 680, 170, 170)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dhwlj"]
+atlas = ExtResource("3_t2jxw")
+region = Rect2(170, 680, 170, 170)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2tww3"]
+atlas = ExtResource("3_t2jxw")
+region = Rect2(340, 680, 170, 170)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xgvqd"]
+atlas = ExtResource("3_t2jxw")
+region = Rect2(0, 850, 170, 170)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_flying"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_27uty")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n5ond")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q224h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y44rc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s4smr")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yae5g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ermq2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ptd6c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nd1wc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1dxmi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c0yn6")
+}],
+"loop": false,
+"name": &"death",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t2jxw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8537x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qkvg3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m1lhm")
+}],
+"loop": true,
+"name": &"fast_flight",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_odhcn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wun42")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qfgod")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t5og4")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xyecw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dhwlj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2tww3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xgvqd")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 10.0
+}]
+
+[node name="FlyingInsect" type="CharacterBody2D" groups=["enemies", "enemy"]]
+collision_layer = 8
+collision_mask = 257
+script = ExtResource("1_flying")
+chase_speed = 175.0
+attack_cooldown = 1.2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_1")
+
+[node name="Visual" type="Node2D" parent="."]
+position = Vector2(0, -3)
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Visual"]
+position = Vector2(-2, 6)
+scale = Vector2(0.16, 0.16)
+sprite_frames = SubResource("SpriteFrames_flying")
+animation = &"attack"
+autoplay = "fly"
+frame = 4
+frame_progress = 1.0
+
+[node name="WingLeft" type="Polygon2D" parent="Visual"]
+visible = false
+color = Color(0.72, 0.82, 0.68, 0.72)
+polygon = PackedVector2Array(-5, -1, -20, -8, -15, 4)
+
+[node name="WingRight" type="Polygon2D" parent="Visual"]
+visible = false
+color = Color(0.72, 0.82, 0.68, 0.72)
+polygon = PackedVector2Array(5, -1, 20, -8, 15, 4)
+
+[node name="Body" type="Polygon2D" parent="Visual"]
+visible = false
+color = Color(0.2, 0.28, 0.16, 1)
+polygon = PackedVector2Array(-8, 0, -2, -6, 7, -2, 8, 4, 1, 10, -6, 8, -10, 4)
+
+[node name="Head" type="Polygon2D" parent="Visual"]
+visible = false
+color = Color(0.1, 0.12, 0.08, 1)
+polygon = PackedVector2Array(4, -6, 10, -5, 8, 1, 2, 0)
+
+[node name="StateLabel" type="Label" parent="."]
+offset_left = -36.0
+offset_top = -32.0
+offset_right = 36.0
+offset_bottom = -12.0
+text = "WANDER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sensors" type="Node2D" parent="."]
