@@ -19,7 +19,8 @@ func setup(start_direction: Vector2, bullet_speed: float, bullet_damage: int):
 	direction = start_direction.normalized()
 	speed = bullet_speed
 	damage = bullet_damage
-	collision_layer = 0
+	add_to_group("projectile")
+	collision_layer = 4
 	collision_mask = BULLET_COLLISION_MASK
 
 	rotation = direction.angle()

@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://Anomalies/vortex.gd" id="1_script"]
+[ext_resource type="Shader" path="res://Anomalies/vortex.gdshader" id="2_shader"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vortex"]
+shader = ExtResource("2_shader")
+shader_parameter/anomaly_color = Color(0.24, 0.42, 0.48, 1)
+shader_parameter/distortion_strength = 0.035
+shader_parameter/swirl_speed = 2.4
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_core"]
+shader = ExtResource("2_shader")
+shader_parameter/anomaly_color = Color(0.08, 0.13, 0.16, 1)
+shader_parameter/distortion_strength = 0.055
+shader_parameter/swirl_speed = 3.6
+
+[sub_resource type="Gradient" id="Gradient_vortex"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vortex"]
+gradient = SubResource("Gradient_vortex")
+width = 256
+height = 256
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vortex"]
+radius = 70.0
+
+[node name="Vortex" type="Area2D" groups=["anomaly"]]
+collision_layer = 0
+collision_mask = 6
+monitoring = true
+script = ExtResource("1_script")
+
+[node name="Visual" type="Sprite2D" parent="."]
+z_index = 3
+material = SubResource("ShaderMaterial_vortex")
+scale = Vector2(1.35, 1.35)
+texture = SubResource("GradientTexture2D_vortex")
+
+[node name="Core" type="Sprite2D" parent="."]
+z_index = 4
+material = SubResource("ShaderMaterial_core")
+scale = Vector2(0.52, 0.52)
+texture = SubResource("GradientTexture2D_vortex")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_vortex")
