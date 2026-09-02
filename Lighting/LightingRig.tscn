@@ -1,15 +1,15 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=3 format=3 uid="uid://cjukv1r3ek7m2"]
 
-[ext_resource type="Script" path="res://Lighting/lighting_rig.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://8ewls12j7inf" path="res://Lighting/lighting_rig.gd" id="1_script"]
 
 [sub_resource type="Environment" id="Environment_night"]
 background_mode = 3
 glow_enabled = true
-glow_intensity = 1.7
-glow_strength = 1.35
-glow_bloom = 0.22
-glow_blend_mode = 1
-glow_hdr_threshold = 0.9
+glow_intensity = 0.75
+glow_strength = 0.7
+glow_bloom = 0.08
+glow_blend_mode = 4
+glow_hdr_threshold = 1.3
 
 [node name="LightingRig" type="Node2D"]
 script = ExtResource("1_script")

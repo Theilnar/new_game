@@ -5,8 +5,8 @@ extends Node2D
 
 @export_category("Glow")
 @export var glow_enabled := true
-@export_range(0.0, 4.0, 0.05) var glow_intensity := 1.7
-@export_range(0.0, 4.0, 0.05) var glow_strength := 1.35
+@export_range(0.0, 4.0, 0.05) var glow_intensity := 0.75
+@export_range(0.0, 4.0, 0.05) var glow_strength := 0.7
 
 @onready var canvas_modulate: CanvasModulate = $CanvasModulate
 @onready var environment: WorldEnvironment = $WorldEnvironment
