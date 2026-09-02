@@ -1,19 +1,14 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=10 format=3 uid="uid://qw44fvietebs"]
 
-[ext_resource type="Script" path="res://Anomalies/vortex.gd" id="1_script"]
-[ext_resource type="Shader" path="res://Anomalies/vortex.gdshader" id="2_shader"]
+[ext_resource type="Script" uid="uid://djrwpooe4bhh4" path="res://Anomalies/vortex.gd" id="1_script"]
+[ext_resource type="Shader" uid="uid://buc7xxx34ler5" path="res://Anomalies/vortex.gdshader" id="2_shader"]
+[ext_resource type="Texture2D" path="res://Sprites/test/particle.png" id="3_particle"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vortex"]
 shader = ExtResource("2_shader")
 shader_parameter/anomaly_color = Color(0.24, 0.42, 0.48, 1)
 shader_parameter/distortion_strength = 0.035
 shader_parameter/swirl_speed = 2.4
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_core"]
-shader = ExtResource("2_shader")
-shader_parameter/anomaly_color = Color(0.08, 0.13, 0.16, 1)
-shader_parameter/distortion_strength = 0.055
-shader_parameter/swirl_speed = 3.6
 
 [sub_resource type="Gradient" id="Gradient_vortex"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
@@ -23,13 +18,32 @@ gradient = SubResource("Gradient_vortex")
 width = 256
 height = 256
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_core"]
+shader = ExtResource("2_shader")
+shader_parameter/anomaly_color = Color(0.08, 0.13, 0.16, 1)
+shader_parameter/distortion_strength = 0.055
+shader_parameter/swirl_speed = 3.6
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_vortex"]
 radius = 70.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dust"]
+emission_shape = 1
+emission_sphere_radius = 62.0
+direction = Vector3(0, -1, 0)
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 12.0
+initial_velocity_max = 32.0
+angular_velocity_min = -80.0
+angular_velocity_max = 80.0
+scale_min = 0.35
+scale_max = 0.8
+color = Color(0.62, 0.68, 0.62, 0.42)
 
 [node name="Vortex" type="Area2D" groups=["anomaly"]]
 collision_layer = 0
 collision_mask = 6
-monitoring = true
 script = ExtResource("1_script")
 
 [node name="Visual" type="Sprite2D" parent="."]
@@ -43,6 +57,16 @@ z_index = 4
 material = SubResource("ShaderMaterial_core")
 scale = Vector2(0.52, 0.52)
 texture = SubResource("GradientTexture2D_vortex")
+
+[node name="DustParticles" type="GPUParticles2D" parent="."]
+z_index = 5
+amount = 24
+lifetime = 2.8
+emitting = true
+preprocess = 1.5
+randomness = 0.8
+texture = ExtResource("3_particle")
+process_material = SubResource("ParticleProcessMaterial_dust")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_vortex")

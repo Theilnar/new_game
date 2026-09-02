@@ -8,11 +8,16 @@ enum AnomalyMode { VORTEX, SPRINGBOARD }
 @export var pull_time: float = 0.42
 @export var springboard_force: float = 850.0
 @export var collapse_time: float = 0.35
+@export var respawn_delay: float = 5.0
 
 @onready var visual: Sprite2D = $Visual
 @onready var core: Sprite2D = $Core
+@onready var particles: GPUParticles2D = $DustParticles
 
 var triggered := false
+var respawning := false
+const VISUAL_SCALE := Vector2(1.35, 1.35)
+const CORE_SCALE := Vector2(0.52, 0.52)
 
 
 func _ready() -> void:
@@ -24,7 +29,7 @@ func _process(delta: float) -> void:
 	visual.rotation += delta * 0.35
 	core.rotation -= delta * 0.8
 	var pulse := 1.0 + sin(Time.get_ticks_msec() * 0.004) * 0.035
-	visual.scale = Vector2.ONE * pulse
+	visual.scale = VISUAL_SCALE * pulse
 
 
 func _on_body_entered(body: Node2D) -> void:
@@ -72,8 +77,12 @@ func trigger_player(player: Node2D) -> void:
 func collapse() -> void:
 	if not is_instance_valid(self):
 		return
+	if respawning:
+		return
 	triggered = true
+	respawning = true
 	monitoring = false
+	particles.emitting = false
 
 	var tween := create_tween()
 	tween.set_parallel(true)
@@ -81,4 +90,25 @@ func collapse() -> void:
 	tween.tween_property(core, "scale", Vector2.ZERO, collapse_time)
 	tween.tween_property(self, "modulate:a", 0.0, collapse_time)
 	await tween.finished
-	queue_free()
+
+	await get_tree().create_timer(respawn_delay).timeout
+	if not is_instance_valid(self):
+		return
+
+	visual.scale = Vector2.ZERO
+	core.scale = Vector2.ZERO
+	modulate.a = 0.0
+	visible = true
+	particles.emitting = true
+	particles.restart()
+
+	var respawn_tween := create_tween()
+	respawn_tween.set_parallel(true)
+	respawn_tween.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	respawn_tween.tween_property(visual, "scale", VISUAL_SCALE, 0.7)
+	respawn_tween.tween_property(core, "scale", CORE_SCALE, 0.7)
+	respawn_tween.tween_property(self, "modulate:a", 1.0, 0.55)
+	await respawn_tween.finished
+	triggered = false
+	respawning = false
+	monitoring = true
