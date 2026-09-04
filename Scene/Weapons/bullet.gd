@@ -4,7 +4,7 @@ var direction := Vector2.RIGHT
 var speed := 700.0
 var damage := 10
 
-const BULLET_COLLISION_MASK := (1 << 0) | (1 << 3)
+const BULLET_COLLISION_MASK := (1 << 0) | (1 << 2) | (1 << 3)
 
 @export var lifetime: float = 5.0  # Время жизни пули
 @export var impact_scene: PackedScene  # Сцена эффекта попадания (опционально)
@@ -32,10 +32,14 @@ func setup(start_direction: Vector2, bullet_speed: float, bullet_damage: int):
 
 func _physics_process(delta: float) -> void:
 	var motion: Vector2 = direction * speed * delta
-	var collision: KinematicCollision2D = move_and_collide(motion)
-
-	if collision:
-		on_hit(collision)
+	# High-speed bullets can skip thin colliders; use short substeps for reliable hits.
+	var steps: int = maxi(1, ceili(motion.length() / 8.0))
+	var step_motion := motion / float(steps)
+	for _index in range(steps):
+		var collision: KinematicCollision2D = move_and_collide(step_motion)
+		if collision:
+			on_hit(collision)
+			return
 
 
 func on_hit(collision: KinematicCollision2D):
@@ -48,6 +52,15 @@ func on_hit(collision: KinematicCollision2D):
 	
 	# Воспроизводим звук попадания (тише и со случайным выбором)
 	play_hit_sound(hit_position)
+
+	if collider.has_method("on_bullet_hit"):
+		collider.on_bullet_hit(direction, damage)
+
+	# Some targets need the exact impact point for localized hit effects.
+	if collider.has_method("take_damage_at_position"):
+		collider.take_damage_at_position(damage, direction, hit_position)
+		queue_free()
+		return
 	
 	# Если попали в StaticBody2D или TileMap
 	if collider is StaticBody2D or collider is TileMap or collider is TileMapLayer:

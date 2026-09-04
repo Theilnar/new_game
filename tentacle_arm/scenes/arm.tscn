@@ -1,0 +1,80 @@
+[gd_scene load_steps=10 format=3 uid="uid://j3gcywxflkf1"]
+
+[ext_resource type="Script" uid="uid://cnvqr2tm46rpq" path="res://tentacle_arm/scripts/Arm.gd" id="1_k0nq1"]
+[ext_resource type="Shader" uid="uid://bm6i26uu8obx0" path="res://tentacle_arm/shaders/canvas_group_shadow.gdshader" id="2_mg0tv"]
+[ext_resource type="Shader" uid="uid://dvcmoaj2bkbf3" path="res://tentacle_arm/shaders/outline.gdshader" id="3_o1qxq"]
+[ext_resource type="Shader" uid="uid://uydbla0eud6j" path="res://tentacle_arm/shaders/canvas_group_two_tone.gdshader" id="4_gowua"]
+[ext_resource type="PackedScene" uid="uid://cgg7gb01rjef3" path="res://tentacle_arm/scenes/eye.tscn" id="5_eye"]
+
+[sub_resource type="Curve" id="Curve_pi6jo"]
+_data = [Vector2(0, 0.987436), 0.0, 0.0, 0, 0, Vector2(1, 0.0534794), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pi6jo"]
+shader = ExtResource("3_o1qxq")
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/outline_size = 1.0
+shader_parameter/alpha_threshold = 0.8
+shader_parameter/outline_samples = 4
+shader_parameter/shade_color = Color(1, 1, 1, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5pek0"]
+shader = ExtResource("2_mg0tv")
+shader_parameter/shadow_color = Color(0.078, 0.137, 0.227, 0.25)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_arm"]
+shader = ExtResource("4_gowua")
+shader_parameter/light_color = Color(0.996, 0.882, 0.722, 1)
+shader_parameter/dark_color = Color(0.831, 0.776, 0.573, 1)
+shader_parameter/shade_ratio = 0.3
+
+[node name="Arm" type="Node2D" node_paths=PackedStringArray("base_node", "shadow_node", "eye_container")]
+script = ExtResource("1_k0nq1")
+base_node = NodePath("OutlinedSubViewportContainer/SubViewport/TwoToneCanvasGroup/BaseLine")
+shadow_node = NodePath("OutlinedSubViewportContainer/SubViewport/ShadowCanvasGroup/ShadowLine")
+width_curve = SubResource("Curve_pi6jo")
+eye_container = NodePath("OutlinedSubViewportContainer/SubViewport/EyeContainer")
+eye_scene = ExtResource("5_eye")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(258, 255)
+zoom = Vector2(5, 5)
+editor_draw_screen = false
+
+[node name="OutlinedSubViewportContainer" type="SubViewportContainer" parent="."]
+material = SubResource("ShaderMaterial_pi6jo")
+offset_right = 512.0
+offset_bottom = 512.0
+
+[node name="SubViewport" type="SubViewport" parent="OutlinedSubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="ShadowCanvasGroup" type="CanvasGroup" parent="OutlinedSubViewportContainer/SubViewport"]
+material = SubResource("ShaderMaterial_5pek0")
+
+[node name="ShadowLine" type="Line2D" parent="OutlinedSubViewportContainer/SubViewport/ShadowCanvasGroup"]
+position = Vector2(256, 256)
+points = PackedVector2Array(0, 5, -4.871933, 2.6710205, -8.8675995, -0.53904724, -12.336258, -4.1504364, -15.356125, -8.0477295, -17.932236, -12.205795, -20.482712, -16.386047, -23.378708, -20.360931, -26.687408, -24.018753, -30.374374, -27.319702, -34.41455, -30.24582, -38.78392, -32.787796, -43.183136, -35.32733, -47.337708, -38.18962, -51.127075, -41.42041, -54.51436, -44.978912, -57.483887, -48.837296, -60.028625, -52.97017, -62.56694, -57.131943, -65.456345, -61.09323, -68.754074, -64.737335, -72.41533, -68.01817, -76.40277, -70.91626, -80.70473, -73.40527, -85.05322, -75.84691)
+width = 24.0
+width_curve = SubResource("Curve_pi6jo")
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="TwoToneCanvasGroup" type="CanvasGroup" parent="OutlinedSubViewportContainer/SubViewport"]
+material = SubResource("ShaderMaterial_arm")
+
+[node name="BaseLine" type="Line2D" parent="OutlinedSubViewportContainer/SubViewport/TwoToneCanvasGroup"]
+position = Vector2(256, 256)
+points = PackedVector2Array(0, 0, -4.871933, -2.9539948, -8.8675995, -6.7890472, -12.336258, -11.025436, -15.356125, -15.5477295, -17.932236, -20.330795, -20.482712, -25.136047, -23.378708, -29.735931, -26.687408, -34.018753, -30.374374, -37.944702, -34.41455, -41.49582, -38.78392, -44.662796, -43.183136, -47.82733, -47.337708, -51.31462, -51.127075, -55.17041, -54.51436, -59.353912, -57.483887, -63.837296, -60.028625, -68.59517, -62.56694, -73.38194, -65.456345, -77.96823, -68.754074, -82.237335, -72.41533, -86.14317, -76.40277, -89.66626, -80.70473, -92.78027, -85.05322, -95.84691)
+width = 24.0
+width_curve = SubResource("Curve_pi6jo")
+texture_mode = 1
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="EyeContainer" type="Node2D" parent="OutlinedSubViewportContainer/SubViewport"]
+position = Vector2(256, 256)

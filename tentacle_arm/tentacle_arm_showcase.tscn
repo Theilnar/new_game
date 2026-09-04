@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://biyee4att8x60"]
+
+[ext_resource type="PackedScene" uid="uid://dec6sm6m68snh" path="res://tentacle_arm/scenes/demo.tscn" id="1_demo"]
+[ext_resource type="Script" uid="uid://dpgvss3s8h3w1" path="res://tentacle_arm/tentacle_arm_showcase.gd" id="2_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5yvfd"]
+size = Vector2(378, 186)
+
+[node name="TentacleArmShowcase" instance=ExtResource("1_demo")]
+script = ExtResource("2_script")
+
+[node name="Camera2D" parent="." index="0"]
+visible = false
+
+[node name="ArmTarget" parent="." index="2"]
+position = Vector2(251.51, 149.54)
+
+[node name="PlayerDetectionArea" type="Area2D" parent="." index="5"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetectionArea" index="0"]
+position = Vector2(258, 173)
+shape = SubResource("RectangleShape2D_5yvfd")
+
+[node name="TargetProxy" type="Node2D" parent="." index="6"]

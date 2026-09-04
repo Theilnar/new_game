@@ -1,0 +1,44 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Tentacle Arm Showcase"
+run/main_scene="uid://dec6sm6m68snh"
+config/features=PackedStringArray("4.5", "GL Compatibility")
+config/icon="uid://k738biuidln7"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/subwindows/embed_subwindows=false
+window/stretch/scale_mode="integer"
+
+[file_customization]
+
+folder_colors={
+"res://fonts/": "gray",
+"res://progression/": "gray",
+"res://scenes/": "red",
+"res://scripts/": "green",
+"res://shaders/": "purple",
+"res://sprites/": "blue",
+"res://svg/": "gray",
+"res://visualizations/": "gray"
+}
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+anti_aliasing/screen_space_roughness_limiter/enabled=false
+environment/defaults/default_clear_color=Color(0.199703, 0.257754, 0.325558, 1)
