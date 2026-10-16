@@ -20,6 +20,6 @@ func _draw() -> void:
 
 	# Поперечные швы слегка сходятся к дальней стороне потолка.
 	for y in [-285.0, -270.0, -255.0]:
-		var t := (y - CEILING_TOP) / (CEILING_LEFT - CEILING_TOP)
+		var t: float = float(y - CEILING_TOP) / float(CEILING_LEFT - CEILING_TOP)
 		var right_y := lerp(CEILING_TOP, CEILING_RIGHT, t)
 		draw_line(Vector2(0, y), Vector2(CEILING_END, right_y), seam_color, 2.0)
