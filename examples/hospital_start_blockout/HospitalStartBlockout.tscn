@@ -1,0 +1,116 @@
+[gd_scene load_steps=11 format=3]
+
+[sub_resource type="RectangleShape2D" id="FloorShape"]
+size = Vector2(1800, 20)
+
+[sub_resource type="RectangleShape2D" id="CeilingShape"]
+size = Vector2(1800, 20)
+
+[sub_resource type="RectangleShape2D" id="LeftWallShape"]
+size = Vector2(20, 280)
+
+[sub_resource type="RectangleShape2D" id="RightWallShape"]
+size = Vector2(20, 280)
+
+[sub_resource type="RectangleShape2D" id="PartitionShape"]
+size = Vector2(14, 70)
+
+[sub_resource type="RectangleShape2D" id="RoomUpperWallShape"]
+size = Vector2(14, 80)
+
+[node name="HospitalStartBlockout" type="Node2D"]
+
+[node name="BlackOutside" type="Polygon2D" parent="."]
+z_index = -20
+color = Color(0.008, 0.008, 0.012, 1)
+polygon = PackedVector2Array(-180, -480, 1980, -480, 1980, 420, -180, 420)
+
+[node name="Ceiling" type="Polygon2D" parent="."]
+z_index = -5
+color = Color(0.18, 0.2, 0.22, 1)
+polygon = PackedVector2Array(0, -280, 1800, -280, 1800, -260, 0, -260)
+
+[node name="CeilingTrim" type="Polygon2D" parent="."]
+z_index = -4
+color = Color(0.32, 0.34, 0.35, 1)
+polygon = PackedVector2Array(0, -260, 1800, -260, 1800, -252, 0, -252)
+
+[node name="Floor" type="Polygon2D" parent="."]
+z_index = -5
+color = Color(0.16, 0.18, 0.19, 1)
+polygon = PackedVector2Array(0, 0, 1800, 0, 1800, 20, 0, 20)
+
+[node name="FloorTrim" type="Polygon2D" parent="."]
+z_index = -4
+color = Color(0.28, 0.3, 0.3, 1)
+polygon = PackedVector2Array(0, -8, 1800, -8, 1800, 0, 0, 0)
+
+[node name="LeftWall" type="Polygon2D" parent="."]
+z_index = -5
+color = Color(0.48, 0.51, 0.5, 1)
+polygon = PackedVector2Array(0, -260, 20, -260, 20, 0, 0, 0)
+
+[node name="RightWall" type="Polygon2D" parent="."]
+z_index = -5
+color = Color(0.48, 0.51, 0.5, 1)
+polygon = PackedVector2Array(1780, -260, 1800, -260, 1800, 0, 1780, 0)
+
+[node name="Partitions" type="Node2D" parent="."]
+
+[node name="StartWardWall" type="Polygon2D" parent="Partitions"]
+color = Color(0.43, 0.46, 0.46, 1)
+polygon = PackedVector2Array(360, -260, 374, -260, 374, -190, 360, -190, 360, -70, 374, -70, 374, 0, 360, 0)
+
+[node name="CorridorWall" type="Polygon2D" parent="Partitions"]
+color = Color(0.43, 0.46, 0.46, 1)
+polygon = PackedVector2Array(650, -260, 664, -260, 664, -190, 650, -190, 650, -70, 664, -70, 664, 0, 650, 0)
+
+[node name="Room203Wall" type="Polygon2D" parent="Partitions"]
+color = Color(0.43, 0.46, 0.46, 1)
+polygon = PackedVector2Array(820, -260, 834, -260, 834, -190, 820, -190, 820, -70, 834, -70, 834, 0, 820, 0)
+
+[node name="Room204Wall" type="Polygon2D" parent="Partitions"]
+color = Color(0.43, 0.46, 0.46, 1)
+polygon = PackedVector2Array(990, -260, 1004, -260, 1004, -190, 990, -190, 990, -70, 1004, -70, 1004, 0, 990, 0)
+
+[node name="RegistrationWall" type="Polygon2D" parent="Partitions"]
+color = Color(0.43, 0.46, 0.46, 1)
+polygon = PackedVector2Array(1240, -260, 1254, -260, 1254, -190, 1240, -190, 1240, -70, 1254, -70, 1254, 0, 1240, 0)
+
+[node name="StairsWall" type="Polygon2D" parent="Partitions"]
+color = Color(0.43, 0.46, 0.46, 1)
+polygon = PackedVector2Array(1430, -260, 1444, -260, 1444, -190, 1430, -190, 1430, -70, 1444, -70, 1444, 0, 1430, 0)
+
+[node name="ToiletWall" type="Polygon2D" parent="Partitions"]
+color = Color(0.43, 0.46, 0.46, 1)
+polygon = PackedVector2Array(1580, -260, 1594, -260, 1594, -190, 1580, -190, 1580, -70, 1594, -70, 1594, 0, 1580, 0)
+
+[node name="Collision" type="Node2D" parent="."]
+
+[node name="FloorBody" type="StaticBody2D" parent="Collision"]
+collision_layer = 1
+
+[node name="Shape" type="CollisionShape2D" parent="Collision/FloorBody"]
+position = Vector2(900, 10)
+shape = SubResource("FloorShape")
+
+[node name="CeilingBody" type="StaticBody2D" parent="Collision"]
+collision_layer = 1
+
+[node name="Shape" type="CollisionShape2D" parent="Collision/CeilingBody"]
+position = Vector2(900, -270)
+shape = SubResource("CeilingShape")
+
+[node name="LeftBody" type="StaticBody2D" parent="Collision"]
+collision_layer = 1
+
+[node name="Shape" type="CollisionShape2D" parent="Collision/LeftBody"]
+position = Vector2(10, -130)
+shape = SubResource("LeftWallShape")
+
+[node name="RightBody" type="StaticBody2D" parent="Collision"]
+collision_layer = 1
+
+[node name="Shape" type="CollisionShape2D" parent="Collision/RightBody"]
+position = Vector2(1790, -130)
+shape = SubResource("RightWallShape")
