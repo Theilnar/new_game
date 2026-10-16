@@ -14,12 +14,12 @@ func _draw() -> void:
 	# Продольные швы плит Armstrong с лёгким перспективным наклоном.
 	for x in range(0, 1801, 128):
 		var t := float(x) / CEILING_END
-		var bottom_y := lerp(CEILING_LEFT, CEILING_RIGHT, t)
+		var bottom_y: float = lerpf(CEILING_LEFT, CEILING_RIGHT, t)
 		draw_line(Vector2(x, CEILING_TOP), Vector2(x, bottom_y), seam_color, 2.0)
 		draw_line(Vector2(x + 2, CEILING_TOP + 2), Vector2(x + 2, bottom_y - 1), highlight_color, 1.0)
 
 	# Поперечные швы слегка сходятся к дальней стороне потолка.
 	for y in [-285.0, -270.0, -255.0]:
 		var t: float = float(y - CEILING_TOP) / float(CEILING_LEFT - CEILING_TOP)
-		var right_y := lerp(CEILING_TOP, CEILING_RIGHT, t)
+		var right_y: float = lerpf(CEILING_TOP, CEILING_RIGHT, t)
 		draw_line(Vector2(0, y), Vector2(CEILING_END, right_y), seam_color, 2.0)
