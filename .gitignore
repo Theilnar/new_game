@@ -1,0 +1,11 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+box_push_backup_*.zip
+/box_push_version_*.zip
+/parallax_experiment_backup_*.zip
+/pre_camera_zoom_*.zip
+/pre_fence_vault_collision_*.zip
+.godot_log.txt
+.godot_user/
+*.log

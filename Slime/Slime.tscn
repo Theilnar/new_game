@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://lrilwi6a5xg7"]
+
+[ext_resource type="Script" uid="uid://bgkkfbtvu66ym" path="res://Slime/slime.gd" id="1_slime_script"]
+[ext_resource type="Texture2D" uid="uid://dsf6lsmq3a3fv" path="res://Sprites/other/slime spritesheet calciumtrice.png" id="2_slime_texture"]
+[ext_resource type="Texture2D" uid="uid://csabe6x7chpvd" path="res://Sprites/Light/circle.png" id="3_wd8wu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_slime"]
+size = Vector2(44, 31)
+
+[node name="Slime" type="CharacterBody2D" groups=["enemies", "enemy"]]
+collision_layer = 8
+script = ExtResource("1_slime_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -15.5)
+shape = SubResource("RectangleShape2D_slime")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(1.269618, 1.269618, 1.269618, 1)
+position = Vector2(1.5000033, -57.86518)
+scale = Vector2(3.2187502, 3.6165738)
+texture = ExtResource("2_slime_texture")
+hframes = 10
+vframes = 20
+
+[node name="FloorCheck" type="RayCast2D" parent="."]
+position = Vector2(0, -1)
+target_position = Vector2(0, 22)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(3.999977, -20.000023)
+scale = Vector2(0.7049999, 0.7049999)
+color = Color(0.48899934, 1, 1, 1)
+energy = 4.79
+texture = ExtResource("3_wd8wu")

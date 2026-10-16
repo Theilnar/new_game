@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://dsstaqa7ote5d"]
+
+[ext_resource type="Script" path="res://Environment/rotating_red_lamp.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://bwihb37etmt1l" path="res://Environment/rotating_red_lamp.svg" id="2_lamp"]
+[ext_resource type="Texture2D" uid="uid://btgff52pkhj3t" path="res://Environment/red_lamp_beam.svg" id="3_beam"]
+[ext_resource type="AudioStream" uid="uid://coi5p3s1l14wq" path="res://Environment/lamp_squeaks_1.ogg" id="4_ukrxu"]
+
+[node name="RotatingRedLamp" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Body" type="Sprite2D" parent="."]
+position = Vector2(0.2, -0.085)
+scale = Vector2(0.4375, 0.4375)
+texture = ExtResource("2_lamp")
+
+[node name="RotatingHead" type="Node2D" parent="."]
+position = Vector2(0, -3)
+
+[node name="RedLight" type="PointLight2D" parent="RotatingHead"]
+color = Color(1, 0.06, 0.03, 1)
+energy = 2.8
+range_layer_min = -20
+range_layer_max = 10
+shadow_enabled = true
+texture = ExtResource("3_beam")
+texture_scale = 1.35
+
+[node name="RedGlow" type="PointLight2D" parent="RotatingHead"]
+color = Color(1, 0.04, 0.02, 1)
+energy = 3.2
+texture = ExtResource("3_beam")
+texture_scale = 0.34
+
+[node name="MotorSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_ukrxu")
+volume_db = -12.0
+max_distance = 650.0
+attenuation = 1.7

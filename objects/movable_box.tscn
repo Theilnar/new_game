@@ -1,0 +1,66 @@
+[gd_scene load_steps=6 format=3 uid="uid://cusowab7fgfjn"]
+
+[ext_resource type="Script" uid="uid://b6w1mw378fpwf" path="res://objects/movable_box.gd" id="1_movable"]
+[ext_resource type="Texture2D" uid="uid://c7tqbf3qs656n" path="res://Sprites/Push/container2.png" id="2_box"]
+
+[sub_resource type="RectangleShape2D" id="TopShape"]
+size = Vector2(68, 3.5)
+
+[sub_resource type="RectangleShape2D" id="SideShape"]
+size = Vector2(5, 34)
+
+[sub_resource type="RectangleShape2D" id="PlayerAreaShape"]
+size = Vector2(74, 42)
+
+[node name="MovableBox" type="Node2D"]
+script = ExtResource("1_movable")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_mask = 7
+
+[node name="BoxSprite" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(0, -4)
+scale = Vector2(2, 2)
+texture = ExtResource("2_box")
+
+[node name="TopPlatform" type="StaticBody2D" parent="."]
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopPlatform"]
+position = Vector2(0, -20)
+shape = SubResource("TopShape")
+one_way_collision = true
+one_way_collision_margin = 8.0
+
+[node name="SideAreaLeft" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SideAreaLeft"]
+position = Vector2(-37, 0)
+shape = SubResource("SideShape")
+
+[node name="SideAreaRight" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SideAreaRight"]
+position = Vector2(37, 0)
+shape = SubResource("SideShape")
+
+[node name="PlayerArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerArea"]
+position = Vector2(0, 4)
+shape = SubResource("PlayerAreaShape")
+
+[connection signal="body_entered" from="SideAreaLeft" to="." method="_on_left_area_body_entered"]
+[connection signal="body_exited" from="SideAreaLeft" to="." method="_on_left_area_body_exited"]
+[connection signal="body_entered" from="SideAreaRight" to="." method="_on_right_area_body_entered"]
+[connection signal="body_exited" from="SideAreaRight" to="." method="_on_right_area_body_exited"]
+[connection signal="body_entered" from="PlayerArea" to="." method="_on_player_area_body_entered"]
+[connection signal="body_exited" from="PlayerArea" to="." method="_on_player_area_body_exited"]

@@ -1,0 +1,50 @@
+[gd_scene load_steps=10 format=3 uid="uid://cgrjjmqftw0bg"]
+
+[ext_resource type="Script" uid="uid://20mkchgrcanc" path="res://Environment/grass.gd" id="1_l66qs"]
+[ext_resource type="Material" uid="uid://ckw78bjysr2pf" path="res://grass.tres" id="2_6tm82"]
+[ext_resource type="Texture2D" uid="uid://dimneeqfrapqi" path="res://Sprites/background/grass02.png" id="3_in6si"]
+[ext_resource type="Texture2D" uid="uid://csabe6x7chpvd" path="res://Sprites/Light/circle.png" id="4_p4lif"]
+[ext_resource type="Script" uid="uid://soisqlpspvin" path="res://Environment/point_light_2d.gd" id="5_5cdjr"]
+[ext_resource type="Texture2D" uid="uid://cn1f6kj7ewds3" path="res://Sprites/other/forest.png" id="6_in6si"]
+[ext_resource type="Texture2D" uid="uid://5waa4yja7dav" path="res://Sprites/background/grass03.png" id="9_grass"]
+[ext_resource type="Texture2D" uid="uid://dvw0dn4urcb48" path="res://Sprites/background/grass04.png" id="10_grass"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_av8h3"]
+size = Vector2(9, 6)
+
+[node name="Grass" type="Node2D"]
+z_index = 5
+script = ExtResource("1_l66qs")
+grass_textures = Array[Texture2D]([ExtResource("3_in6si"), ExtResource("9_grass"), ExtResource("10_grass")])
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = ExtResource("2_6tm82")
+position = Vector2(0, 1)
+scale = Vector2(0.723837, 0.723837)
+texture = ExtResource("3_in6si")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-0.5, 13)
+shape = SubResource("RectangleShape2D_av8h3")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+visible = false
+position = Vector2(9.999985, 1.5258789e-05)
+scale = Vector2(0.3875, 0.3875)
+energy = 2.37
+texture = ExtResource("4_p4lif")
+script = ExtResource("5_5cdjr")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+sub_emitter = NodePath(".")
+texture = ExtResource("6_in6si")
+lifetime = 6.63
+interp_to_end = 0.07
+preprocess = 1.19
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

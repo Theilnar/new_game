@@ -1,0 +1,113 @@
+[gd_scene load_steps=13 format=3 uid="uid://dmh17el1xttcv"]
+
+[ext_resource type="Script" uid="uid://do24gbyci6pug" path="res://examples/room_fog_door/fog_room_zone.gd" id="1_fog_room_zone"]
+[ext_resource type="Texture2D" uid="uid://cqaht1c8m1xpr" path="res://Sprites/hospital/hospital_door_open_animation_left_pixel_uniform.png" id="2_door_animation"]
+[ext_resource type="AudioStream" uid="uid://bqlb2es1rv1be" path="res://sound/door/door_open2.mp3" id="3_beeuk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_door_2"]
+atlas = ExtResource("2_door_animation")
+region = Rect2(362, 0, 362, 724)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_door_3"]
+atlas = ExtResource("2_door_animation")
+region = Rect2(724, 0, 362, 724)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_door_4"]
+atlas = ExtResource("2_door_animation")
+region = Rect2(1086, 0, 362, 724)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_door_5"]
+atlas = ExtResource("2_door_animation")
+region = Rect2(1448, 0, 362, 724)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_door_6"]
+atlas = ExtResource("2_door_animation")
+region = Rect2(1810, 0, 362, 724)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_door"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_door_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_door_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_door_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_door_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_door_6")
+}],
+"loop": false,
+"name": &"open",
+"speed": 7.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_interaction"]
+size = Vector2(42, 190)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_door"]
+size = Vector2(46, 190)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_room"]
+size = Vector2(453, 199)
+
+[node name="FogRoomZone" type="Node2D"]
+script = ExtResource("1_fog_room_zone")
+
+[node name="FogOverlay" type="Polygon2D" parent="."]
+z_index = 20
+color = Color(0.03, 0.03, 0.03, 1)
+polygon = PackedVector2Array(-8, -98, 429, -100, 429, 99, 213, 101, -9, 99)
+
+[node name="InteractPrompt" type="Label" parent="."]
+visible = false
+z_index = 30
+offset_left = -145.0
+offset_top = -145.0
+offset_right = -145.0
+offset_bottom = -145.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.9)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 22
+text = "[ E ]  ОТКРЫТЬ"
+
+[node name="DoorAnimatedSprite" type="AnimatedSprite2D" parent="."]
+z_index = 1
+position = Vector2(-19, 36.999992)
+scale = Vector2(0.22063537, 0.22616023)
+sprite_frames = SubResource("SpriteFrames_door")
+animation = &"open"
+
+[node name="DoorOpenSound" type="AudioStreamPlayer2D" parent="."]
+z_index = 11
+stream = ExtResource("3_beeuk")
+max_distance = 700.0
+
+[node name="InteractionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+position = Vector2(-21, 0)
+shape = SubResource("RectangleShape2D_interaction")
+
+[node name="DoorBody" type="StaticBody2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DoorBody"]
+position = Vector2(-8, 0)
+shape = SubResource("RectangleShape2D_door")
+
+[node name="RoomArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomArea"]
+position = Vector2(203.5, 2.5)
+shape = SubResource("RectangleShape2D_room")

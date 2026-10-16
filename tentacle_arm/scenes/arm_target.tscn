@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqvqac7rqkedq"]
+
+[ext_resource type="Script" uid="uid://obsbqcftfxyw" path="res://tentacle_arm/scripts/DraggableTarget.gd" id="1_qeif2"]
+[ext_resource type="Texture2D" uid="uid://bh1rseckw4gbs" path="res://tentacle_arm/sprites/target.png" id="2_bj35a"]
+
+[node name="ArmTarget" type="Node2D"]
+z_index = 2
+z_as_relative = false
+script = ExtResource("1_qeif2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_bj35a")

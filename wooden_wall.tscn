@@ -1,0 +1,66 @@
+[gd_scene load_steps=9 format=3 uid="uid://d236tyel2v75f"]
+
+[ext_resource type="Texture2D" uid="uid://bydun1pi1tscv" path="res://Sprites/wooden_wall/wooden_wall_2.png" id="1_1m87k"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ou6ok"]
+atlas = ExtResource("1_1m87k")
+region = Rect2(0, 0, 250, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qk6j0"]
+atlas = ExtResource("1_1m87k")
+region = Rect2(250, 0, 250, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oeieq"]
+atlas = ExtResource("1_1m87k")
+region = Rect2(0, 160, 250, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q4dwg"]
+atlas = ExtResource("1_1m87k")
+region = Rect2(250, 160, 250, 160)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f1fg2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ou6ok")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qk6j0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oeieq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q4dwg")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l0uu8"]
+size = Vector2(180, 69)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jxftv"]
+size = Vector2(108, 110)
+
+[node name="wooden_wall" type="Node2D"]
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+collision_mask = 3
+
+[node name="Area2D" type="Area2D" parent="RigidBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="RigidBody2D/Area2D"]
+sprite_frames = SubResource("SpriteFrames_f1fg2")
+animation = &"idle"
+frame = 1
+frame_progress = 0.7513875
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D/Area2D"]
+position = Vector2(-1, -3.5)
+shape = SubResource("RectangleShape2D_l0uu8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+position = Vector2(-3, -2)
+shape = SubResource("RectangleShape2D_jxftv")

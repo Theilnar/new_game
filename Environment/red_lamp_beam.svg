@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <defs>
+    <radialGradient id="beam" cx="50%" cy="5%" r="95%">
+      <stop offset="0" stop-color="#ff5b4d" stop-opacity="0.95"/>
+      <stop offset="0.18" stop-color="#f21e2b" stop-opacity="0.55"/>
+      <stop offset="0.55" stop-color="#b30e20" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#710014" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <path d="M128 0 C190 30 246 108 256 256 L0 256 C10 108 66 30 128 0Z" fill="url(#beam)"/>
+</svg>

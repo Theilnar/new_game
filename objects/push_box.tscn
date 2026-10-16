@@ -1,0 +1,74 @@
+[gd_scene load_steps=6 format=3 uid="uid://cmap4fl5ue0kq"]
+
+[ext_resource type="Script" uid="uid://b6jo2r7x8py8j" path="res://objects/push_box.gd" id="1_a2vkk"]
+[ext_resource type="Texture2D" uid="uid://c7tqbf3qs656n" path="res://Sprites/Push/container2.png" id="2_hbkho"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_en0lx"]
+size = Vector2(4, 33)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qg5xd"]
+size = Vector2(4, 33)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eqkpk"]
+size = Vector2(73.5, 33)
+
+[node name="Push_box" type="Node2D"]
+script = ExtResource("1_a2vkk")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_mask = 7
+
+[node name="Container2" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(0.687503, -4.21875)
+scale = Vector2(2, 2)
+texture = ExtResource("2_hbkho")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(34, 35, -32, 35, -32, -17, 34, -17)
+
+[node name="Area2D" type="Area2D" parent="StaticBody2D"]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D/Area2D"]
+position = Vector2(-35, 9)
+shape = SubResource("RectangleShape2D_en0lx")
+
+[node name="Area2D2" type="Area2D" parent="StaticBody2D"]
+collision_layer = 0
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D/Area2D2"]
+position = Vector2(37, 9)
+shape = SubResource("RectangleShape2D_qg5xd")
+
+[node name="player_coll" type="Area2D" parent="StaticBody2D"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D/player_coll"]
+position = Vector2(1.25, 9)
+shape = SubResource("RectangleShape2D_eqkpk")
+
+[node name="Panel" type="Panel" parent="."]
+visible = false
+offset_left = -44.0
+offset_top = -103.0
+offset_right = 43.0
+offset_bottom = -35.0
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 0
+offset_top = 7.0
+offset_right = 88.0
+offset_bottom = 64.0
+theme_override_font_sizes/font_size = 10
+text = "Нажми \"F\"
+ для 
+Перемещения"
+horizontal_alignment = 1
+
+[connection signal="body_entered" from="StaticBody2D/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="StaticBody2D/Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="StaticBody2D/Area2D2" to="." method="_on_area_2d_2_body_entered"]
+[connection signal="body_exited" from="StaticBody2D/Area2D2" to="." method="_on_area_2d_2_body_exited"]
+[connection signal="body_entered" from="StaticBody2D/player_coll" to="." method="_on_player_coll_body_entered"]
+[connection signal="body_exited" from="StaticBody2D/player_coll" to="." method="_on_player_coll_body_exited"]

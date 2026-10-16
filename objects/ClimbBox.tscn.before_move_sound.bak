@@ -1,0 +1,123 @@
+[gd_scene load_steps=8 format=3 uid="uid://ddshtwvtr5vw7"]
+
+[ext_resource type="Script" uid="uid://bl6um3wnsnmkl" path="res://objects/climb_box.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://ck83xxf205fs6" path="res://Sprites/Push/container.png" id="2_texture"]
+
+[sub_resource type="RectangleShape2D" id="BoxShape"]
+size = Vector2(84, 61)
+
+[sub_resource type="RectangleShape2D" id="TopPlatformShape"]
+size = Vector2(82, 4)
+
+[sub_resource type="RectangleShape2D" id="InteractShape"]
+size = Vector2(40, 30)
+
+[sub_resource type="StyleBoxFlat" id="ButtonStyle"]
+bg_color = Color(0.08, 0.1, 0.12, 0.94)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.85, 0.9, 0.92, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+
+[sub_resource type="StyleBoxFlat" id="ArrowStyle"]
+bg_color = Color(0.08, 0.1, 0.12, 0.94)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.85, 0.9, 0.92, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="ClimbBox" type="CharacterBody2D" groups=["ClimbBox"]]
+collision_layer = 4
+script = ExtResource("1_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0.9999999, -4)
+scale = Vector2(0.34272677, 0.3427268)
+texture = ExtResource("2_texture")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2.5)
+shape = SubResource("BoxShape")
+
+[node name="TopPlatform" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopPlatform"]
+position = Vector2(0, -35)
+shape = SubResource("TopPlatformShape")
+disabled = true
+
+[node name="InteractArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+position = Vector2(0, 12)
+shape = SubResource("InteractShape")
+
+[node name="Prompt" type="Node2D" parent="."]
+z_index = 20
+position = Vector2(27, 0)
+
+[node name="Move" type="HBoxContainer" parent="Prompt"]
+offset_left = -70.0
+offset_top = -108.0
+offset_right = 70.0
+offset_bottom = -80.0
+theme_override_constants/separation = 4
+
+[node name="EButton" type="PanelContainer" parent="Prompt/Move"]
+custom_minimum_size = Vector2(26, 26)
+layout_mode = 2
+theme_override_styles/panel = SubResource("ButtonStyle")
+
+[node name="Label" type="Label" parent="Prompt/Move/EButton"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "E"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Text" type="Label" parent="Prompt/Move"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 10
+text = "переместить"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Up" type="HBoxContainer" parent="Prompt"]
+offset_left = -70.0
+offset_top = -76.0
+offset_right = 70.0
+offset_bottom = -48.0
+theme_override_constants/separation = 4
+
+[node name="Button" type="PanelContainer" parent="Prompt/Up"]
+custom_minimum_size = Vector2(26, 26)
+layout_mode = 2
+theme_override_styles/panel = SubResource("ArrowStyle")
+
+[node name="Label" type="Label" parent="Prompt/Up/Button"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "↑"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Text" type="Label" parent="Prompt/Up"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "подняться"
+vertical_alignment = 1

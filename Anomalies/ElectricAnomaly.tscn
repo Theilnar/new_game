@@ -1,0 +1,282 @@
+[gd_scene load_steps=34 format=3 uid="uid://dwdka21ij6vri"]
+
+[ext_resource type="Script" uid="uid://bhoo78n5xxk" path="res://Anomalies/electric_anomaly.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://dswudo4y2ess5" path="res://weapons/particle.png" id="2_particle"]
+[ext_resource type="AudioStream" uid="uid://buo78qd32a46u" path="res://Anomalies/sounds/electro.mp3" id="3_6kqli"]
+[ext_resource type="AudioStream" uid="uid://c1okxvt4kf2rh" path="res://Anomalies/sounds/bfuzz_hit.mp3" id="3_zap"]
+[ext_resource type="Texture2D" uid="uid://dmrc0thsiuvtd" path="res://Anomalies/sprites/Lightning_Cyan_0.png" id="5_kb3to"]
+[ext_resource type="Texture2D" uid="uid://1plvuwgny3ei" path="res://Sprites/Light/circle_051.png" id="6_wktce"]
+[ext_resource type="Texture2D" uid="uid://csabe6x7chpvd" path="res://Sprites/Light/circle.png" id="7_qed3v"]
+[ext_resource type="Shader" uid="uid://b4y77oyupefup" path="res://Anomalies/electric_glow.gdshader" id="8_glow_shader"]
+
+[sub_resource type="Gradient" id="Gradient_vw1j5"]
+colors = PackedColorArray(0.35, 0.85, 1, 0.85, 0.1, 0.35, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_glow"]
+gradient = SubResource("Gradient_vw1j5")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_additive"]
+blend_mode = 1
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sparks"]
+emission_shape = 1
+emission_sphere_radius = 48.0
+direction = Vector3(0, -1, 0)
+spread = 180.0
+initial_velocity_min = 18.0
+initial_velocity_max = 55.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.25
+scale_max = 0.55
+color = Color(0.4, 0.85, 1, 0.8)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_electric"]
+radius = 58.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wktce"]
+atlas = ExtResource("5_kb3to")
+region = Rect2(0, 0, 100, 175)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qed3v"]
+atlas = ExtResource("5_kb3to")
+region = Rect2(0, 175, 100, 175)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vw1j5"]
+atlas = ExtResource("5_kb3to")
+region = Rect2(100, 0, 100, 175)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_myjym"]
+atlas = ExtResource("5_kb3to")
+region = Rect2(100, 175, 100, 175)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x031t"]
+atlas = ExtResource("5_kb3to")
+region = Rect2(200, 0, 100, 175)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nfgyo"]
+atlas = ExtResource("5_kb3to")
+region = Rect2(200, 175, 100, 175)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_noomf"]
+atlas = ExtResource("5_kb3to")
+region = Rect2(300, 0, 100, 175)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2j636"]
+atlas = ExtResource("5_kb3to")
+region = Rect2(300, 175, 100, 175)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ck4xb"]
+atlas = ExtResource("5_kb3to")
+region = Rect2(400, 0, 100, 175)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dxs73"]
+atlas = ExtResource("5_kb3to")
+region = Rect2(400, 175, 100, 175)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sxhi1"]
+atlas = ExtResource("5_kb3to")
+region = Rect2(500, 0, 100, 175)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5i6lf"]
+atlas = ExtResource("5_kb3to")
+region = Rect2(500, 175, 100, 175)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_caiem"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wktce")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qed3v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vw1j5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_myjym")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x031t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nfgyo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_noomf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2j636")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ck4xb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dxs73")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sxhi1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5i6lf")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 25.0
+}]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_electric_glow"]
+shader = ExtResource("8_glow_shader")
+shader_parameter/glow_color = Color(0.12, 0.72, 1, 1)
+shader_parameter/glow_strength = 2.4
+shader_parameter/spread = 5.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_qed3v"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vw1j5"]
+particle_flag_disable_z = true
+angular_velocity_min = -82.76002
+angular_velocity_max = 314.59998
+orbit_velocity_min = -0.18999991
+orbit_velocity_max = 0.048000097
+radial_velocity_min = -57.640022
+radial_velocity_max = 91.28998
+gravity = Vector3(0, 98, 0)
+scale_min = 0.0
+scale_over_velocity_max = 143.68
+color = Color(0, 0.5841293, 0.71099424, 1)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_vw1j5"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="Curve" id="Curve_myjym"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.14136124, 1), 0.0, 0.0, 0, 0, Vector2(0.9921465, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_x031t"]
+curve = SubResource("Curve_myjym")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nfgyo"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+scale_min = 0.099999994
+scale_max = 0.39999998
+scale_curve = SubResource("CurveTexture_x031t")
+color = Color(0, 1, 0.92941177, 1)
+
+[node name="ElectricAnomaly" type="Area2D" groups=["anomaly"]]
+z_index = 5
+collision_layer = 0
+collision_mask = 6
+script = ExtResource("1_script")
+
+[node name="Glow" type="PointLight2D" parent="."]
+visible = false
+color = Color(0.25, 0.75, 1, 1)
+energy = 1.8
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_glow")
+texture_scale = 2.2
+
+[node name="ArcLightA" type="PointLight2D" parent="."]
+color = Color(0.35, 1, 0.12, 1)
+energy = 1.4
+texture = SubResource("GradientTexture2D_glow")
+texture_scale = 2.6
+
+[node name="ArcLightB" type="PointLight2D" parent="."]
+color = Color(0.35, 1, 0.12, 1)
+energy = 1.4
+texture = SubResource("GradientTexture2D_glow")
+texture_scale = 2.6
+
+[node name="ArcLightC" type="PointLight2D" parent="."]
+color = Color(0.35, 1, 0.12, 1)
+energy = 1.4
+texture = SubResource("GradientTexture2D_glow")
+texture_scale = 2.6
+
+[node name="Aura" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(0.15, 0.65, 1, 0.5)
+z_index = 1
+material = SubResource("CanvasItemMaterial_additive")
+scale = Vector2(1.65, 1.65)
+texture = SubResource("GradientTexture2D_glow")
+
+[node name="Sparks" type="GPUParticles2D" parent="."]
+visible = false
+z_index = 3
+amount = 28
+texture = ExtResource("2_particle")
+lifetime = 0.65
+randomness = 0.8
+process_material = SubResource("ParticleProcessMaterial_sparks")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_electric")
+
+[node name="AmbientSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_6kqli")
+volume_db = -24.0
+max_distance = 360.0
+attenuation = 2.2
+
+[node name="ZapSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_zap")
+volume_db = -8.0
+max_distance = 600.0
+attenuation = 1.5
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+z_index = 4
+material = SubResource("CanvasItemMaterial_additive")
+position = Vector2(50.000008, -1.0000005)
+scale = Vector2(0.36, 0.36)
+sprite_frames = SubResource("SpriteFrames_caiem")
+animation = &"idle"
+frame_progress = 0.6969862
+
+[node name="LightningGlow" type="AnimatedSprite2D" parent="."]
+visible = false
+modulate = Color(0.08, 0.55, 1, 0.3)
+z_index = 2
+material = SubResource("ShaderMaterial_electric_glow")
+position = Vector2(50.000008, -1.0000005)
+scale = Vector2(0.43, 0.43)
+sprite_frames = SubResource("SpriteFrames_caiem")
+animation = &"idle"
+frame_progress = 0.6969862
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+visible = false
+material = SubResource("CanvasItemMaterial_qed3v")
+amount = 14
+texture = ExtResource("6_wktce")
+process_material = SubResource("ParticleProcessMaterial_vw1j5")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+visible = false
+material = SubResource("CanvasItemMaterial_vw1j5")
+position = Vector2(0, 3)
+amount = 1
+texture = ExtResource("6_wktce")
+lifetime = 0.16
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_nfgyo")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+visible = false
+position = Vector2(6.9999847, 5.9999924)
+scale = Vector2(0.39125, 0.39125)
+energy = 4.09
+texture = ExtResource("7_qed3v")

@@ -1,0 +1,499 @@
+[gd_scene load_steps=71 format=3 uid="uid://10uqkinkiwq6"]
+
+[ext_resource type="Texture2D" uid="uid://dv11ovptp2i2a" path="res://Sprites/Wild Zombie/Attack_1.png" id="attack_1_tex"]
+[ext_resource type="Texture2D" uid="uid://jaeqm18trmgw" path="res://Sprites/Wild Zombie/Attack_2.png" id="attack_2_tex"]
+[ext_resource type="Texture2D" uid="uid://s3f7mjrow7ym" path="res://Sprites/Wild Zombie/Attack_3.png" id="attack_3_tex"]
+[ext_resource type="Texture2D" uid="uid://cclg7dse8erok" path="res://Sprites/Wild Zombie/Dead.png" id="dead_tex"]
+[ext_resource type="Texture2D" uid="uid://ddmll41xp1obo" path="res://Sprites/Wild Zombie/Hurt.png" id="hurt_tex"]
+[ext_resource type="Texture2D" uid="uid://bxrev6gfhvm1h" path="res://Sprites/Wild Zombie/Idle.png" id="idle_tex"]
+[ext_resource type="Texture2D" uid="uid://dn3cwaowct5l" path="res://Sprites/Wild Zombie/Jump.png" id="jump_tex"]
+[ext_resource type="Texture2D" uid="uid://du1rwna87c12y" path="res://Sprites/Wild Zombie/Run.png" id="run_tex"]
+[ext_resource type="Script" uid="uid://bojmpyqkeb88m" path="res://Mobs/wild_zombie.gd" id="script"]
+[ext_resource type="Texture2D" uid="uid://chb0ddk4qwgdx" path="res://Sprites/Wild Zombie/Walk.png" id="walk_tex"]
+
+[sub_resource type="CapsuleShape2D" id="BodyShape"]
+radius = 20.0
+height = 40.0
+
+[sub_resource type="CircleShape2D" id="AttackShape"]
+radius = 48.0
+
+[sub_resource type="AtlasTexture" id="Wild_attack_1_0"]
+atlas = ExtResource("attack_1_tex")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_attack_1_1"]
+atlas = ExtResource("attack_1_tex")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_attack_1_2"]
+atlas = ExtResource("attack_1_tex")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_attack_1_3"]
+atlas = ExtResource("attack_1_tex")
+region = Rect2(288, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_attack_2_0"]
+atlas = ExtResource("attack_2_tex")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_attack_2_1"]
+atlas = ExtResource("attack_2_tex")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_attack_2_2"]
+atlas = ExtResource("attack_2_tex")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_attack_2_3"]
+atlas = ExtResource("attack_2_tex")
+region = Rect2(288, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_attack_3_0"]
+atlas = ExtResource("attack_3_tex")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_attack_3_1"]
+atlas = ExtResource("attack_3_tex")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_attack_3_2"]
+atlas = ExtResource("attack_3_tex")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_attack_3_3"]
+atlas = ExtResource("attack_3_tex")
+region = Rect2(288, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_dead_0"]
+atlas = ExtResource("dead_tex")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_dead_1"]
+atlas = ExtResource("dead_tex")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_dead_2"]
+atlas = ExtResource("dead_tex")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_dead_3"]
+atlas = ExtResource("dead_tex")
+region = Rect2(288, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_dead_4"]
+atlas = ExtResource("dead_tex")
+region = Rect2(384, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_hurt_0"]
+atlas = ExtResource("hurt_tex")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_hurt_1"]
+atlas = ExtResource("hurt_tex")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_hurt_2"]
+atlas = ExtResource("hurt_tex")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_hurt_3"]
+atlas = ExtResource("hurt_tex")
+region = Rect2(288, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_hurt_4"]
+atlas = ExtResource("hurt_tex")
+region = Rect2(384, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_idle_0"]
+atlas = ExtResource("idle_tex")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_idle_1"]
+atlas = ExtResource("idle_tex")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_idle_2"]
+atlas = ExtResource("idle_tex")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_idle_3"]
+atlas = ExtResource("idle_tex")
+region = Rect2(288, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_idle_4"]
+atlas = ExtResource("idle_tex")
+region = Rect2(384, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_idle_5"]
+atlas = ExtResource("idle_tex")
+region = Rect2(480, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_idle_6"]
+atlas = ExtResource("idle_tex")
+region = Rect2(576, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_idle_7"]
+atlas = ExtResource("idle_tex")
+region = Rect2(672, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_idle_8"]
+atlas = ExtResource("idle_tex")
+region = Rect2(768, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_jump_0"]
+atlas = ExtResource("jump_tex")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_jump_1"]
+atlas = ExtResource("jump_tex")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_jump_2"]
+atlas = ExtResource("jump_tex")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_jump_3"]
+atlas = ExtResource("jump_tex")
+region = Rect2(288, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_jump_4"]
+atlas = ExtResource("jump_tex")
+region = Rect2(384, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_jump_5"]
+atlas = ExtResource("jump_tex")
+region = Rect2(480, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_run_0"]
+atlas = ExtResource("run_tex")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_run_1"]
+atlas = ExtResource("run_tex")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_run_2"]
+atlas = ExtResource("run_tex")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_run_3"]
+atlas = ExtResource("run_tex")
+region = Rect2(288, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_run_4"]
+atlas = ExtResource("run_tex")
+region = Rect2(384, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_run_5"]
+atlas = ExtResource("run_tex")
+region = Rect2(480, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_run_6"]
+atlas = ExtResource("run_tex")
+region = Rect2(576, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_run_7"]
+atlas = ExtResource("run_tex")
+region = Rect2(672, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_walk_0"]
+atlas = ExtResource("walk_tex")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_walk_1"]
+atlas = ExtResource("walk_tex")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_walk_2"]
+atlas = ExtResource("walk_tex")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_walk_3"]
+atlas = ExtResource("walk_tex")
+region = Rect2(288, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_walk_4"]
+atlas = ExtResource("walk_tex")
+region = Rect2(384, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_walk_5"]
+atlas = ExtResource("walk_tex")
+region = Rect2(480, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_walk_6"]
+atlas = ExtResource("walk_tex")
+region = Rect2(576, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_walk_7"]
+atlas = ExtResource("walk_tex")
+region = Rect2(672, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_walk_8"]
+atlas = ExtResource("walk_tex")
+region = Rect2(768, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="Wild_walk_9"]
+atlas = ExtResource("walk_tex")
+region = Rect2(864, 0, 96, 96)
+
+[sub_resource type="SpriteFrames" id="Frames"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Wild_attack_1_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_attack_1_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_attack_1_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_attack_1_3")
+}],
+"loop": false,
+"name": &"attack_1",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Wild_attack_2_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_attack_2_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_attack_2_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_attack_2_3")
+}],
+"loop": false,
+"name": &"attack_2",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Wild_attack_3_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_attack_3_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_attack_3_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_attack_3_3")
+}],
+"loop": false,
+"name": &"attack_3",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Wild_dead_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_dead_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_dead_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_dead_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_dead_4")
+}],
+"loop": false,
+"name": &"dead",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Wild_hurt_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_hurt_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_hurt_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_hurt_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_hurt_4")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Wild_idle_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_idle_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_idle_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_idle_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_idle_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_idle_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_idle_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_idle_7")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_idle_8")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Wild_jump_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_jump_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_jump_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_jump_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_jump_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_jump_5")
+}],
+"loop": false,
+"name": &"jump",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Wild_run_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_run_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_run_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_run_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_run_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_run_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_run_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_run_7")
+}],
+"loop": true,
+"name": &"run",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Wild_walk_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_walk_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_walk_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_walk_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_walk_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_walk_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_walk_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_walk_7")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_walk_8")
+}, {
+"duration": 1.0,
+"texture": SubResource("Wild_walk_9")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="VisionAreaShape"]
+size = Vector2(520, 150)
+
+[sub_resource type="CircleShape2D" id="HearingAreaShape"]
+radius = 700.0
+
+[node name="WildZombie" type="CharacterBody2D" groups=["enemies", "wild_zombies", "zombies"]]
+collision_layer = 8
+script = ExtResource("script")
+
+[node name="BodyShape" type="CollisionShape2D" parent="."]
+position = Vector2(1, 24)
+shape = SubResource("BodyShape")
+
+[node name="AttackArea" type="Area2D" parent="."]
+position = Vector2(30, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+shape = SubResource("AttackShape")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, -16)
+scale = Vector2(1.25, 1.25)
+sprite_frames = SubResource("Frames")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="VisionRay" type="RayCast2D" parent="."]
+collision_mask = 15
+
+[node name="VisionArea" type="Area2D" parent="."]
+position = Vector2(260, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VisionArea"]
+shape = SubResource("VisionAreaShape")
+
+[node name="HearingArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HearingArea"]
+shape = SubResource("HearingAreaShape")

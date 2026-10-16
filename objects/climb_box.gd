@@ -1,0 +1,196 @@
+extends CharacterBody2D
+class_name ClimbBox
+
+@export var move_speed: float = 34.0
+@export var gravity: float = 1800.0
+@export var center_tolerance: float = 30.0
+@export var top_player_offset: float = 60.0
+
+@onready var prompt: Node2D = $Prompt
+@onready var prompt_move: Control = $Prompt/Move
+@onready var prompt_up: Control = $Prompt/Up
+@onready var move_sound: AudioStreamPlayer2D = $MoveSound
+
+var nearby_player: CharacterBody2D
+var carried_player: CharacterBody2D
+var carry_side: float = 1.0
+var carry_offset := Vector2.ZERO
+var carry_initializing := false
+var climb_in_progress := false
+var top_player: CharacterBody2D
+var prompt_tween: Tween
+var prompt_target_visible: bool = false
+
+func _ready() -> void:
+	$InteractArea.body_entered.connect(_on_interact_area_body_entered)
+	$InteractArea.body_exited.connect(_on_interact_area_body_exited)
+	prompt.modulate.a = 0.0
+	prompt.visible = false
+
+func _set_prompt_visible(should_show: bool) -> void:
+	if prompt_target_visible == should_show:
+		return
+	prompt_target_visible = should_show
+	if is_instance_valid(prompt_tween):
+		prompt_tween.kill()
+	if should_show:
+		prompt.visible = true
+		prompt_move.visible = true
+		prompt_up.visible = true
+	prompt_tween = create_tween()
+	prompt_tween.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	prompt_tween.tween_property(prompt, "modulate:a", 1.0 if should_show else 0.0, 0.18)
+	if not should_show:
+		prompt_tween.tween_callback(func() -> void:
+			if not prompt_target_visible:
+				prompt.visible = false
+		)
+
+func _physics_process(delta: float) -> void:
+	if climb_in_progress:
+		_stop_move_sound()
+		return
+	if is_instance_valid(top_player) and Input.is_action_just_pressed("down"):
+		_start_top_drop()
+		return
+	if is_instance_valid(top_player) and absf(top_player.global_position.x - global_position.x) > 42.0:
+		$TopPlatform/CollisionShape2D.set_deferred("disabled", true)
+		top_player = null
+	if carry_initializing:
+		return
+
+	if carried_player != null:
+		_process_carried_player(delta)
+	else:
+		_stop_move_sound()
+		if not is_on_floor():
+			velocity.y += gravity * delta
+		else:
+			velocity.y = 0.0
+		velocity.x = move_toward(velocity.x, 0.0, move_speed * 5.0 * delta)
+		move_and_slide()
+		_find_nearby_player()
+		_update_prompt()
+		if is_instance_valid(nearby_player):
+			if Input.is_action_just_pressed("interact"):
+				_begin_carry(nearby_player)
+			elif Input.is_action_just_pressed("up"):
+				_begin_carry(nearby_player)
+				_start_top_climb()
+
+func _process_carried_player(delta: float) -> void:
+	if not is_instance_valid(carried_player):
+		carried_player = null
+		_stop_move_sound()
+		return
+
+	if Input.is_action_just_pressed("interact"):
+		_stop_move_sound()
+		_release_player()
+		return
+
+	if Input.is_action_just_pressed("up"):
+		_stop_move_sound()
+		_start_top_climb()
+		return
+
+	var direction := Input.get_axis("left", "right")
+	if not is_zero_approx(direction):
+		carry_side = signf(direction)
+		velocity.x = direction * move_speed
+		carried_player.set_climb_box_direction(direction)
+	else:
+		velocity.x = move_toward(velocity.x, 0.0, move_speed * 6.0 * delta)
+		carried_player.play_box_animation(&"hero_push_idle")
+
+	move_and_slide()
+	if not is_zero_approx(velocity.x):
+		if not move_sound.playing:
+			move_sound.play()
+	elif move_sound.playing:
+		move_sound.stop()
+	carried_player.global_position = global_position + carry_offset
+
+func _stop_move_sound() -> void:
+	if move_sound.playing:
+		move_sound.stop()
+
+func _update_prompt() -> void:
+	var can_interact := (
+		is_instance_valid(nearby_player)
+		and absf(nearby_player.global_position.x - global_position.x) <= center_tolerance
+		and absf(nearby_player.global_position.y - global_position.y) <= 70.0
+	)
+	_set_prompt_visible(can_interact)
+	if can_interact:
+		prompt_move.visible = true
+		prompt_up.visible = true
+
+func _find_nearby_player() -> void:
+	if is_instance_valid(top_player):
+		nearby_player = null
+		return
+	var player := get_tree().get_first_node_in_group("player") as CharacterBody2D
+	if not is_instance_valid(player):
+		nearby_player = null
+		return
+	var is_near := (
+		absf(player.global_position.x - global_position.x) <= center_tolerance
+		and absf(player.global_position.y - global_position.y) <= 70.0
+	)
+	nearby_player = player if is_near else null
+
+func _begin_carry(player: CharacterBody2D) -> void:
+	carry_initializing = true
+	carried_player = player
+	nearby_player = null
+	carry_side = -1.0 if player.global_position.x < global_position.x else 1.0
+	var locked_player_y := player.global_position.y
+	await player.begin_climb_box(self, carry_side)
+	carry_offset = Vector2(0.0, locked_player_y - global_position.y)
+	player.global_position = Vector2(global_position.x, locked_player_y)
+	carry_initializing = false
+	_set_prompt_visible(false)
+
+func _release_player() -> void:
+	_stop_move_sound()
+	if is_instance_valid(carried_player):
+		carried_player.release_climb_box()
+	carried_player = null
+	velocity.x = 0.0
+
+func _start_top_climb() -> void:
+	if not is_instance_valid(carried_player):
+		_stop_move_sound()
+		return
+	_stop_move_sound()
+	climb_in_progress = true
+	velocity = Vector2.ZERO
+	_set_prompt_visible(false)
+	var player := carried_player
+	var target := Vector2(global_position.x, global_position.y - top_player_offset)
+	carried_player = null
+	top_player = player
+	$TopPlatform/CollisionShape2D.set_deferred("disabled", false)
+	await player.climb_box_to_top(self, target)
+	climb_in_progress = false
+
+func _start_top_drop() -> void:
+	if not is_instance_valid(top_player):
+		return
+	climb_in_progress = true
+	_set_prompt_visible(false)
+	$TopPlatform/CollisionShape2D.set_deferred("disabled", true)
+	var player := top_player
+	top_player = null
+	await player.descend_from_climb_box(global_position.y)
+	climb_in_progress = false
+
+func _on_interact_area_body_entered(body: Node2D) -> void:
+	if body.is_in_group("player") and body is CharacterBody2D:
+		nearby_player = body
+
+func _on_interact_area_body_exited(body: Node2D) -> void:
+	if body == nearby_player:
+		nearby_player = null
+		_set_prompt_visible(false)

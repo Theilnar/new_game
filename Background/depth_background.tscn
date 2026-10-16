@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://c6lrqxtb6q7dd"]
+
+[ext_resource type="Script" uid="uid://cswkknlj48eru" path="res://Background/depth_background.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://dsg1evma1bct5" path="res://Sprites/background/parallax_ai/parallax_far_ai_no_rain.png" id="2_far"]
+[ext_resource type="Texture2D" uid="uid://ct6lim3ivy6sc" path="res://Sprites/background/parallax_ai/parallax_mid_ai_transparent.png" id="3_mid"]
+
+[node name="DepthBackground" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="RearParallax" type="ParallaxBackground" parent="."]
+layer = -3
+scroll_base_scale = Vector2(0.5, 0.5)
+
+[node name="DistantCity" type="ParallaxLayer" parent="RearParallax"]
+motion_scale = Vector2(0.025, 0.025)
+motion_mirroring = Vector2(2172, 0)
+
+[node name="City" type="Sprite2D" parent="RearParallax/DistantCity"]
+modulate = Color(0.5497381, 0.7200002, 0.8198382, 0.47000003)
+position = Vector2(1086, 362)
+texture = ExtResource("2_far")
+
+[node name="MidDepthCity" type="ParallaxLayer" parent="RearParallax"]
+motion_scale = Vector2(0.075, 0.075)
+motion_mirroring = Vector2(2172, 0)
+
+[node name="CitySilhouette" type="Sprite2D" parent="RearParallax/MidDepthCity"]
+modulate = Color(0.37957397, 0.5802685, 0.6799758, 0.574)
+position = Vector2(1003.26, 386)
+scale = Vector2(0.8961879, 0.82)
+texture = ExtResource("3_mid")

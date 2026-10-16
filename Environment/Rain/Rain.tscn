@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://dxk72uht304x3"]
+
+[ext_resource type="Script" uid="uid://dv16s54rcn41p" path="res://Environment/Rain/rain.gd" id="1_rain"]
+[ext_resource type="Texture2D" uid="uid://bvmin32ntfec3" path="res://Environment/Rain/rain_drop.svg" id="2_drop"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rain"]
+emission_shape = 3
+emission_box_extents = Vector3(900, 24, 1)
+direction = Vector3(0.08, 1, 0)
+spread = 3.0
+initial_velocity_min = 560.0
+initial_velocity_max = 760.0
+gravity = Vector3(45, 180, 0)
+scale_min = 0.65
+scale_max = 1.15
+color = Color(0.62, 0.84, 0.92, 0.42)
+
+[node name="Rain" type="CanvasLayer"]
+layer = 20
+visible = false
+script = ExtResource("1_rain")
+
+[node name="RainParticles" type="GPUParticles2D" parent="."]
+position = Vector2(600, -40)
+amount = 260
+texture = ExtResource("2_drop")
+lifetime = 1.45
+preprocess = 1.45
+randomness = 0.35
+visibility_rect = Rect2(-800, -100, 2800, 1200)
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_rain")

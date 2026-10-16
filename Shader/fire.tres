@@ -1,0 +1,31 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://uwmfo0jywxx2"]
+
+[ext_resource type="Shader" uid="uid://0helj8clssng" path="res://Shader/fire.gdshader" id="1_fygs2"]
+
+[resource]
+shader = ExtResource("1_fygs2")
+shader_parameter/speed = 1.0
+shader_parameter/pixelSize = 0.015
+shader_parameter/alpha = 0.95
+shader_parameter/flickerStrength = 0.15
+shader_parameter/toColor = Color(0.4, 0.35, 0.2, 1)
+shader_parameter/fromColor = Color(0.9, 0.2, 0.1, 1)
+shader_parameter/hueShift = 0.0
+shader_parameter/saturationFactor = 1.0
+shader_parameter/particleCount = 128.0
+shader_parameter/brightness = 0.001
+shader_parameter/fireShift = 0.15
+shader_parameter/fireShiftFrequency = 5.0
+shader_parameter/size = Vector2(0.05, 0.75)
+shader_parameter/glow = Vector2(0.001, 0.04)
+shader_parameter/sparkCount = 18.0
+shader_parameter/sparkSize = 0.004
+shader_parameter/sparkSpeed = 0.15
+shader_parameter/sparkColor = Color(1, 0.7, 0, 1)
+shader_parameter/smokeCount = 20.0
+shader_parameter/smokeSize = 0.015
+shader_parameter/smokeDrift = 0.2
+shader_parameter/smokeColor = Color(0.05, 0.05, 0.05, 1)
+shader_parameter/windForce = 0.0
+shader_parameter/aspectRatio = 1.0
+shader_parameter/posOffset = Vector2(0, -0.5)

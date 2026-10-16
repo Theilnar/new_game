@@ -1,0 +1,62 @@
+[gd_scene load_steps=6 format=3 uid="uid://do41rylfydqr3"]
+
+[ext_resource type="Script" uid="uid://ceiipdu3s0t1r" path="res://Ladder/ladder.gd" id="1_ladder_script"]
+[ext_resource type="Texture2D" uid="uid://donequlxji3ho" path="res://Sprites/ladder/ladder.png" id="2_4u7o5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y246t"]
+size = Vector2(25, 239)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_top_platform"]
+size = Vector2(27, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ladder_top_entry"]
+size = Vector2(64, 59)
+
+[node name="ladder" type="Node2D"]
+script = ExtResource("1_ladder_script")
+top_drop_through_time = 0.8
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(4.499998, 0)
+scale = Vector2(2.3214285, 2)
+texture = ExtResource("2_4u7o5")
+
+[node name="Area2D" type="Area2D" parent="." groups=["Ladder"]]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-0.5, 18.5)
+shape = SubResource("RectangleShape2D_y246t")
+
+[node name="ExitTop" type="Marker2D" parent="."]
+position = Vector2(1, -185)
+
+[node name="TopPlatform" type="StaticBody2D" parent="ExitTop" groups=["LadderTopPlatform", "Platform"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitTop/TopPlatform"]
+position = Vector2(-1, 36)
+shape = SubResource("RectangleShape2D_top_platform")
+one_way_collision = true
+
+[node name="LadderTopEntry" type="Area2D" parent="."]
+position = Vector2(1, -189)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LadderTopEntry"]
+position = Vector2(0, 5.5)
+shape = SubResource("RectangleShape2D_ladder_top_entry")
+
+[node name="ExitLeft" type="Marker2D" parent="."]
+position = Vector2(-25, -185)
+
+[node name="ExitRight" type="Marker2D" parent="."]
+position = Vector2(27, -185)
+
+[node name="Label" type="Label" parent="."]
+offset_left = -69.0
+offset_top = 9.0
+offset_right = -19.0
+offset_bottom = 32.0
+text = "ladder
+"

@@ -1,0 +1,112 @@
+[gd_scene load_steps=17 format=3 uid="uid://qw44fvietebs"]
+
+[ext_resource type="Script" uid="uid://djrwpooe4bhh4" path="res://Anomalies/vortex.gd" id="1_script"]
+[ext_resource type="Shader" uid="uid://buc7xxx34ler5" path="res://Anomalies/vortex.gdshader" id="2_shader"]
+[ext_resource type="Texture2D" uid="uid://1plvuwgny3ei" path="res://Sprites/Light/circle_051.png" id="3_3xwp6"]
+[ext_resource type="AudioStream" uid="uid://c3yragekgfmut" path="res://Anomalies/sounds/anomaly_gravy_idle.mp3" id="4_3xwp6"]
+[ext_resource type="AudioStream" uid="uid://dumm0ta7bqk06" path="res://Anomalies/sounds/anomaly_gravy_blast01.mp3" id="5_785j2"]
+[ext_resource type="AudioStream" uid="uid://dtk7lak0yjoxu" path="res://Anomalies/sounds/anomaly_gravy_hit1.mp3" id="6_3xwp6"]
+[ext_resource type="AudioStream" uid="uid://dbm2t7pxy4j3h" path="res://Anomalies/sounds/anomaly_gravy_blast1.mp3" id="7_785j2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vortex"]
+shader = ExtResource("2_shader")
+shader_parameter/anomaly_color = Color(0.24, 0.42, 0.48, 1)
+shader_parameter/distortion_strength = 0.035
+shader_parameter/swirl_speed = 2.4
+
+[sub_resource type="Gradient" id="Gradient_vortex"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vortex"]
+gradient = SubResource("Gradient_vortex")
+width = 256
+height = 256
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_core"]
+shader = ExtResource("2_shader")
+shader_parameter/anomaly_color = Color(0.08, 0.13, 0.16, 1)
+shader_parameter/distortion_strength = 0.055
+shader_parameter/swirl_speed = 3.6
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_3xwp6"]
+blend_mode = 1
+light_mode = 1
+
+[sub_resource type="Curve" id="Curve_particle_size"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.18, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_particle_size"]
+curve = SubResource("Curve_particle_size")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dust"]
+emission_shape = 1
+emission_sphere_radius = 62.0
+direction = Vector3(0, -1, 0)
+spread = 180.0
+initial_velocity_min = 12.0
+initial_velocity_max = 32.0
+angular_velocity_min = -80.0
+angular_velocity_max = 80.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.06
+scale_max = 0.14
+scale_curve = SubResource("CurveTexture_particle_size")
+color = Color(0.72, 1, 0.82, 0.58)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vortex"]
+radius = 68.117546
+
+[node name="Vortex" type="Area2D" groups=["anomaly"]]
+collision_layer = 0
+collision_mask = 6
+script = ExtResource("1_script")
+
+[node name="Visual" type="Sprite2D" parent="."]
+z_index = 3
+material = SubResource("ShaderMaterial_vortex")
+scale = Vector2(1.35, 1.35)
+texture = SubResource("GradientTexture2D_vortex")
+
+[node name="Core" type="Sprite2D" parent="."]
+z_index = 4
+material = SubResource("ShaderMaterial_core")
+scale = Vector2(0.52, 0.52)
+texture = SubResource("GradientTexture2D_vortex")
+
+[node name="DustParticles" type="GPUParticles2D" parent="."]
+z_index = 5
+material = SubResource("CanvasItemMaterial_3xwp6")
+amount = 36
+texture = ExtResource("3_3xwp6")
+lifetime = 2.8
+preprocess = 1.5
+randomness = 0.8
+process_material = SubResource("ParticleProcessMaterial_dust")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_vortex")
+
+[node name="AmbientSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_3xwp6")
+volume_db = -20.0
+max_distance = 500.0
+attenuation = 2.0
+
+[node name="HitSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_3xwp6")
+volume_db = -8.0
+max_distance = 650.0
+attenuation = 1.4
+
+[node name="CollapseSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_785j2")
+volume_db = -10.0
+max_distance = 850.0
+attenuation = 1.4
+
+[node name="AppearSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_785j2")
+volume_db = -12.0
+max_distance = 700.0
+attenuation = 1.5

@@ -1,0 +1,89 @@
+[gd_scene load_steps=8 format=3 uid="uid://dag4x1l640tme"]
+
+[ext_resource type="Script" uid="uid://c37ovlom7yknk" path="res://objects/board_break/board_break_wall.gd" id="1_wall"]
+[ext_resource type="AudioStream" uid="uid://cknxlbwj21c0r" path="res://sound/board_break/board_break_hold_3.mp3" id="2_cwyb2"]
+[ext_resource type="AudioStream" uid="uid://bpyqln656mn5b" path="res://sound/board_break/board_break_hold.ogg" id="2_hold"]
+[ext_resource type="AudioStream" uid="uid://bqg4dqk4njn8d" path="res://sound/board_break/board_break_tear_3.mp3" id="3_abu5g"]
+[ext_resource type="AudioStream" uid="uid://un63pwec3thm" path="res://sound/board_break/board_break_tear.mp3" id="3_tear"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
+size = Vector2(32, 154)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_area"]
+size = Vector2(190, 150)
+
+[node name="BoardBreakWall" type="Node2D"]
+script = ExtResource("1_wall")
+hold_sound = ExtResource("2_cwyb2")
+tear_sound = ExtResource("3_abu5g")
+
+[node name="WallVisual" type="Node2D" parent="."]
+
+[node name="Left" type="Polygon2D" parent="WallVisual"]
+color = Color(0.25, 0.27, 0.29, 1)
+polygon = PackedVector2Array(-110, -80, -16, -80, -16, 80, -110, 80)
+
+[node name="Right" type="Polygon2D" parent="WallVisual"]
+color = Color(0.25, 0.27, 0.29, 1)
+polygon = PackedVector2Array(16, -80, 110, -80, 110, 80, 16, 80)
+
+[node name="Top" type="Polygon2D" parent="WallVisual"]
+color = Color(0.25, 0.27, 0.29, 1)
+polygon = PackedVector2Array(-16, -80, 16, -80, 16, -10, 0, -10, -16, -10)
+
+[node name="WallCollision" type="StaticBody2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallCollision"]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="Boards" type="Node2D" parent="."]
+
+[node name="Board1" type="Polygon2D" parent="Boards"]
+position = Vector2(1, 76)
+color = Color(0.5803922, 0.3019608, 0.12156863, 1)
+polygon = PackedVector2Array(-25, -46, 25, -49, 25, -35, -25, -32)
+
+[node name="Board2" type="Polygon2D" parent="Boards"]
+position = Vector2(1, 7)
+color = Color(0.5019608, 0.2509804, 0.101960786, 1)
+polygon = PackedVector2Array(-25, -8, 25, -5, 25, 10, -25, 6)
+
+[node name="Board3" type="Polygon2D" parent="Boards"]
+position = Vector2(0, 15)
+color = Color(0.45, 0.21, 0.08, 1)
+polygon = PackedVector2Array(-25, 37, 25, 33, 25, 47, -25, 51)
+
+[node name="InteractionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+shape = SubResource("RectangleShape2D_area")
+
+[node name="Prompt" type="Label" parent="."]
+offset_left = -66.0
+offset_top = -122.0
+offset_right = 66.0
+offset_bottom = -92.0
+theme_override_colors/font_color = Color(1, 0.9, 0.55, 1)
+theme_override_font_sizes/font_size = 18
+text = "E - сломать"
+horizontal_alignment = 1
+
+[node name="Progress" type="Label" parent="."]
+offset_left = -30.0
+offset_top = 88.0
+offset_right = 30.0
+offset_bottom = 112.0
+theme_override_colors/font_color = Color(1, 0.9, 0.55, 1)
+theme_override_font_sizes/font_size = 14
+
+[node name="HoldAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_hold")
+volume_db = -4.0
+
+[node name="TearAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_tear")
+volume_db = -2.0
