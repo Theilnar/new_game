@@ -1,4 +1,6 @@
-[gd_scene load_steps=11 format=3]
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://examples/hospital_start_blockout/armstrong_ceiling.gd" id="1_armstrong"]
 
 [sub_resource type="RectangleShape2D" id="FloorShape"]
 size = Vector2(1800, 20)
@@ -25,15 +27,34 @@ z_index = -20
 color = Color(0.008, 0.008, 0.012, 1)
 polygon = PackedVector2Array(-180, -480, 1980, -480, 1980, 420, -180, 420)
 
+[node name="BackWall" type="Polygon2D" parent="."]
+z_index = -10
+color = Color(0.34, 0.37, 0.37, 1)
+polygon = PackedVector2Array(20, -252, 1780, -252, 1780, 0, 20, 0)
+
+[node name="BackWallUpperBand" type="Polygon2D" parent="."]
+z_index = -9
+color = Color(0.42, 0.44, 0.43, 1)
+polygon = PackedVector2Array(20, -90, 1780, -90, 1780, -78, 20, -78)
+
+[node name="BackWallLowerBand" type="Polygon2D" parent="."]
+z_index = -9
+color = Color(0.22, 0.25, 0.25, 1)
+polygon = PackedVector2Array(20, -24, 1780, -24, 1780, 0, 20, 0)
+
 [node name="Ceiling" type="Polygon2D" parent="."]
 z_index = -5
 color = Color(0.18, 0.2, 0.22, 1)
-polygon = PackedVector2Array(0, -280, 1800, -280, 1800, -260, 0, -260)
+polygon = PackedVector2Array(0, -300, 1800, -300, 1800, -252, 0, -230)
 
 [node name="CeilingTrim" type="Polygon2D" parent="."]
 z_index = -4
 color = Color(0.32, 0.34, 0.35, 1)
-polygon = PackedVector2Array(0, -260, 1800, -260, 1800, -252, 0, -252)
+polygon = PackedVector2Array(0, -230, 1800, -252, 1800, -244, 0, -222)
+
+[node name="ArmstrongTileGrid" type="Node2D" parent="."]
+z_index = -3
+script = ExtResource("1_armstrong")
 
 [node name="Floor" type="Polygon2D" parent="."]
 z_index = -5
