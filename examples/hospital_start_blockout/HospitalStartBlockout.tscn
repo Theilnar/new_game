@@ -22,12 +22,12 @@ z_index = -20
 color = Color(0.008, 0.008, 0.012, 1)
 polygon = PackedVector2Array(-180, -480, 1980, -480, 1980, 420, -180, 420)
 
-[node name="BackWall" type="Polygon2D" parent="."]
+[node name="BackWall" type="Sprite2D" parent="."]
 z_index = -1
-position = Vector2(-1.2057006, -127.371574)
-scale = Vector2(0.33503377, 0.18482302)
+position = Vector2(0, -222)
+scale = Vector2(0.866, 0.294)
 texture = ExtResource("2_wall")
-polygon = PackedVector2Array(19.976341, 2.0104408, 2064.9534, 9.236092, 2083.986, 970.3129, 6.583518, 951.323)
+centered = false
 
 [node name="ArmstrongCeiling" type="Sprite2D" parent="."]
 z_index = -1
