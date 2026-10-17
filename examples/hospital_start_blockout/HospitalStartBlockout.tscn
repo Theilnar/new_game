@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://bdi0j5wgw7wyu"]
+[gd_scene load_steps=7 format=3 uid="uid://bdi0j5wgw7wyu"]
 
-[ext_resource type="Script" uid="uid://i4xvvpi6ajla" path="res://examples/hospital_start_blockout/armstrong_ceiling.gd" id="1_armstrong"]
 [ext_resource type="Texture2D" uid="uid://cdj78f6reeace" path="res://Sprites/hospital/hospital_wall_texture.png" id="2_wall"]
-[ext_resource type="Texture2D" path="res://Sprites/hospital/armstrong_ceiling_texture.png" id="3_ceiling"]
+[ext_resource type="Texture2D" uid="uid://gmcqo15tff0a" path="res://Sprites/hospital/armstrong_ceiling_texture.png" id="3_ceiling"]
 
 [sub_resource type="RectangleShape2D" id="FloorShape"]
 size = Vector2(1800, 20)
@@ -25,16 +24,16 @@ polygon = PackedVector2Array(-180, -480, 1980, -480, 1980, 420, -180, 420)
 
 [node name="BackWall" type="Polygon2D" parent="."]
 z_index = -1
-position = Vector2(-1.6683908, -193.16183)
-scale = Vector2(0.40531385, 0.2702302)
+position = Vector2(-1.2057006, -127.371574)
+scale = Vector2(0.33503377, 0.18482302)
 texture = ExtResource("2_wall")
-polygon = PackedVector2Array(11.574302, 13.8573, 2072, 8, 2083.986, 770.3129, 6.583518, 751.323)
+polygon = PackedVector2Array(19.976341, 2.0104408, 2064.9534, 9.236092, 2083.986, 870.3129, 6.583518, 851.323)
 
 [node name="ArmstrongCeiling" type="Sprite2D" parent="."]
-z_index = -5
-position = Vector2(900, -260)
-rotation = -0.012
-scale = Vector2(0.866, 0.3)
+z_index = -1
+position = Vector2(422.44547, -225.77861)
+rotation = -0.012000001
+scale = Vector2(0.37847418, 0.12612005)
 texture = ExtResource("3_ceiling")
 
 [node name="Floor" type="Polygon2D" parent="."]
