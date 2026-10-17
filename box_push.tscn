@@ -1,4 +1,4 @@
-[gd_scene load_steps=306 format=3 uid="uid://c3x16tc7hd5f7"]
+[gd_scene load_steps=307 format=3 uid="uid://c3x16tc7hd5f7"]
 
 [ext_resource type="Texture2D" uid="uid://dlxuun4r2jtda" path="res://Sprites/background/Back/container01.png" id="1_2mecu"]
 [ext_resource type="Texture2D" uid="uid://fdf1rqoaojfg" path="res://Sprites/background/Back/container02.png" id="1_8bf5i"]
@@ -33,6 +33,7 @@
 [ext_resource type="Texture2D" uid="uid://nmntfxgtqijk" path="res://Sprites/background/12092026/ac194fe9-f3d2-48c6-aec2-ea1c2b7c2d94.png" id="29_lxegq"]
 [ext_resource type="Texture2D" uid="uid://c1vk2ixnvqete" path="res://Sprites/test/progress_bar_progress.png" id="30_8q0cu"]
 [ext_resource type="Texture2D" uid="uid://blxtdis2ced80" path="res://Sprites/background/Back/serUIx-ezgif.com-crop.png" id="31_uj3cm"]
+[ext_resource type="PackedScene" path="res://examples/hospital_start_blockout/HospitalStartBlockout.tscn" id="38_sitdn"]
 [ext_resource type="Texture2D" uid="uid://cv4plx4544mb5" path="res://Sprites/Light/[CITYPNG.COM]HD Light Spot Spotlight PNG - 1500x1500.png" id="47_tdmon"]
 [ext_resource type="Texture2D" uid="uid://bnvqhe8p1u7is" path="res://Sprites/tilemap/floor.png" id="49_ia1p7"]
 [ext_resource type="Texture2D" uid="uid://cn1f6kj7ewds3" path="res://Sprites/other/forest.png" id="51_7w4do"]
@@ -1763,6 +1764,9 @@ floor_snap_length = 1.0
 spawn_marker_path = NodePath("../../Start_position")
 metadata/_edit_lock_ = true
 
+[node name="HospitalStartBlockout" parent="." instance=ExtResource("38_sitdn")]
+position = Vector2(0, 1854)
+
 [node name="BoardBreakWall" parent="." instance=ExtResource("board_break_wall")]
 z_index = -1
 position = Vector2(449, 255)
@@ -2124,7 +2128,7 @@ scale = Vector2(-0.538453, 0.538453)
 texture = ExtResource("66_2we1w")
 
 [node name="Start_position" type="Marker2D" parent="."]
-position = Vector2(513, 205)
+position = Vector2(498, 1854)
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Start_position"]
