@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bdi0j5wgw7wyu"]
 
 [ext_resource type="Texture2D" uid="uid://cdj78f6reeace" path="res://Sprites/hospital/hospital_wall_texture.png" id="2_wall"]
-[ext_resource type="Texture2D" path="res://Sprites/hospital/armstrong_ceiling_tile.png" id="3_ceiling"]
+[ext_resource type="Texture2D" path="res://Sprites/hospital/armstrong_ceiling_wide.png" id="3_ceiling"]
 
 [sub_resource type="RectangleShape2D" id="FloorShape"]
 size = Vector2(1800, 20)
@@ -31,12 +31,12 @@ centered = false
 
 [node name="ArmstrongCeiling" type="Sprite2D" parent="."]
 z_index = -1
-position = Vector2(423, -216.99997)
+position = Vector2(900, -216.99997)
 rotation = -0.012000001
-scale = Vector2(0.37814838, 0.065)
+scale = Vector2(0.9, 0.065)
 texture = ExtResource("3_ceiling")
 region_enabled = true
-region_rect = Rect2(0, 0, 2079, 724)
+region_rect = Rect2(0, 0, 1686, 724)
 texture_repeat = 2
 
 [node name="Floor" type="Polygon2D" parent="."]
