@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=3]
+[gd_scene load_steps=13 format=3]
 
 [ext_resource type="Script" path="res://examples/hospital_start_blockout/armstrong_ceiling.gd" id="1_armstrong"]
+[ext_resource type="Texture2D" path="res://Sprites/hospital/hospital_wall_texture.png" id="2_wall"]
 
 [sub_resource type="RectangleShape2D" id="FloorShape"]
 size = Vector2(1800, 20)
@@ -29,53 +30,9 @@ polygon = PackedVector2Array(-180, -480, 1980, -480, 1980, 420, -180, 420)
 
 [node name="BackWall" type="Polygon2D" parent="."]
 z_index = -10
-color = Color(0.72, 0.73, 0.68, 1)
+color = Color(1, 1, 1, 1)
 polygon = PackedVector2Array(20, -222, 1780, -244, 1780, 0, 20, 0)
-
-[node name="BackWallTopTrim" type="Polygon2D" parent="."]
-z_index = -9
-color = Color(0.34, 0.36, 0.35, 1)
-polygon = PackedVector2Array(20, -222, 1780, -244, 1780, -234, 20, -212)
-
-[node name="BackWallLowerPanel" type="Polygon2D" parent="."]
-z_index = -9
-color = Color(0.10, 0.34, 0.39, 1)
-polygon = PackedVector2Array(20, -78, 1780, -78, 1780, 0, 20, 0)
-
-[node name="BackWallChairRail" type="Polygon2D" parent="."]
-z_index = -8
-color = Color(0.84, 0.84, 0.77, 1)
-polygon = PackedVector2Array(20, -86, 1780, -86, 1780, -78, 20, -78)
-
-[node name="BackWallPanelSeam01" type="Polygon2D" parent="."]
-z_index = -8
-color = Color(0.47, 0.48, 0.44, 1)
-polygon = PackedVector2Array(245, -222, 249, -222, 249, -86, 245, -86)
-
-[node name="BackWallPanelSeam02" type="Polygon2D" parent="."]
-z_index = -8
-color = Color(0.47, 0.48, 0.44, 1)
-polygon = PackedVector2Array(520, -222, 524, -222, 524, -86, 520, -86)
-
-[node name="BackWallPanelSeam03" type="Polygon2D" parent="."]
-z_index = -8
-color = Color(0.47, 0.48, 0.44, 1)
-polygon = PackedVector2Array(795, -222, 799, -222, 799, -86, 795, -86)
-
-[node name="BackWallPanelSeam04" type="Polygon2D" parent="."]
-z_index = -8
-color = Color(0.47, 0.48, 0.44, 1)
-polygon = PackedVector2Array(1070, -222, 1074, -222, 1074, -86, 1070, -86)
-
-[node name="BackWallPanelSeam05" type="Polygon2D" parent="."]
-z_index = -8
-color = Color(0.47, 0.48, 0.44, 1)
-polygon = PackedVector2Array(1345, -222, 1349, -222, 1349, -86, 1345, -86)
-
-[node name="BackWallPanelSeam06" type="Polygon2D" parent="."]
-z_index = -8
-color = Color(0.47, 0.48, 0.44, 1)
-polygon = PackedVector2Array(1620, -222, 1624, -222, 1624, -86, 1620, -86)
+texture = ExtResource("2_wall")
 
 [node name="Ceiling" type="Polygon2D" parent="."]
 z_index = -5
