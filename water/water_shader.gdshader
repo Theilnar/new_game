@@ -54,11 +54,12 @@ void fragment() {
 		// reflection appear detached from the surface.
 		float sprite_scale_y = abs(MODEL_MATRIX[1].y);
 		float sprite_screen_height = sprite_scale_y / TEXTURE_PIXEL_SIZE.y;
-		float reflection_offset = 2.0 * uv.y * sprite_screen_height * SCREEN_PIXEL_SIZE.y;
+		float distance_from_surface = max(uv.y - level, 0.0);
+		float reflection_offset = 2.0 * distance_from_surface * sprite_screen_height * SCREEN_PIXEL_SIZE.y;
 		vec4 current_texture = texture(screen_texture, vec2(SCREEN_UV.x + noise + reflection_X_offset, SCREEN_UV.y - reflection_offset + reflection_Y_offset));
-		COLOR = mix(COLOR, current_texture,0.5);
-		COLOR = mix(COLOR, water_albedo, water_opacity);
-		COLOR.a = 0.8 - UV.y; /*градиент альфа канала*/
+		COLOR = mix(COLOR, current_texture, 0.82);
+		COLOR = mix(COLOR, water_albedo, water_opacity * 0.35);
+		COLOR.a = clamp(0.78 - distance_from_surface * 0.8, 0.22, 0.78);
 		
 		
 
