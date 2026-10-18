@@ -22,6 +22,8 @@ var player_run_speed
 @export var MANUAL_ZOOM_STEP: float = 0.2
 @export var MANUAL_ZOOM_MIN: float = 1.5
 @export var MANUAL_ZOOM_MAX: float = 5.0
+@export var MANUAL_ZOOM_HOLD_DELAY: float = 0.25
+@export var MANUAL_ZOOM_REPEAT_INTERVAL: float = 0.08
 
 @onready var camera: Camera2D = $"../Camera2D"
 @onready var rand := RandomNumberGenerator.new()
@@ -36,8 +38,9 @@ var walk_sway_strength := 0.0
 var walk_sway_phase := 0.0
 var crouch_zoom_elapsed := 0.0
 var run_zoom_elapsed := 0.0
-var manual_zoom_in_was_pressed: bool = false
-var manual_zoom_out_was_pressed: bool = false
+var manual_zoom_hold_direction: float = 0.0
+var manual_zoom_hold_time: float = 0.0
+var manual_zoom_repeat_time: float = 0.0
 
 
 func _ready() -> void:
@@ -76,24 +79,39 @@ func _apply_manual_zoom(direction: float) -> void:
 	camera_base_zoom = Vector2(new_zoom, new_zoom)
 
 
-func _poll_manual_zoom_input() -> void:
+func _poll_manual_zoom_input(delta: float) -> void:
 	var zoom_in_pressed: bool = Input.is_key_pressed(KEY_PLUS) \
 		or Input.is_key_pressed(KEY_KP_ADD) \
 		or (Input.is_key_pressed(KEY_EQUAL) and Input.is_key_pressed(KEY_SHIFT))
 	var zoom_out_pressed: bool = Input.is_key_pressed(KEY_MINUS) \
 		or Input.is_key_pressed(KEY_KP_SUBTRACT)
+	var zoom_direction: float = 1.0 if zoom_in_pressed else (-1.0 if zoom_out_pressed else 0.0)
 
-	if zoom_in_pressed and not manual_zoom_in_was_pressed:
-		_apply_manual_zoom(1.0)
-	if zoom_out_pressed and not manual_zoom_out_was_pressed:
-		_apply_manual_zoom(-1.0)
+	if is_zero_approx(zoom_direction):
+		manual_zoom_hold_direction = 0.0
+		manual_zoom_hold_time = 0.0
+		manual_zoom_repeat_time = 0.0
+		return
 
-	manual_zoom_in_was_pressed = zoom_in_pressed
-	manual_zoom_out_was_pressed = zoom_out_pressed
+	if zoom_direction != manual_zoom_hold_direction:
+		_apply_manual_zoom(zoom_direction)
+		manual_zoom_hold_direction = zoom_direction
+		manual_zoom_hold_time = 0.0
+		manual_zoom_repeat_time = 0.0
+		return
+
+	manual_zoom_hold_time += delta
+	if manual_zoom_hold_time < MANUAL_ZOOM_HOLD_DELAY:
+		return
+
+	manual_zoom_repeat_time += delta
+	while manual_zoom_repeat_time >= MANUAL_ZOOM_REPEAT_INTERVAL:
+		_apply_manual_zoom(zoom_direction)
+		manual_zoom_repeat_time -= MANUAL_ZOOM_REPEAT_INTERVAL
 
 
 func _process(delta: float) -> void:
-	_poll_manual_zoom_input()
+	_poll_manual_zoom_input(delta)
 	var player_body := get_parent() as CharacterBody2D
 	var horizontal_speed: float = absf(player_body.velocity.x) if is_instance_valid(player_body) else 0.0
 	var is_running: bool = is_instance_valid(player_body) and player_body.get("RUN_SPEED") == 2 and horizontal_speed > 0.0
