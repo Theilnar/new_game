@@ -389,7 +389,7 @@ shader_parameter/distortion_scale = Vector2(1.21, 1)
 shader_parameter/distortion_intencity = 0.015
 shader_parameter/distortion_speed = 0.13
 shader_parameter/fadeGradient = SubResource("GradientTexture2D_wdnb4")
-shader_parameter/water_color = Color(0, 0.0705882, 0.662745, 0.341176)
+shader_parameter/water_color = Color(0.20, 0.28, 0.08, 0.34)
 shader_parameter/reflection_bottom_visibility = 0.22
 shader_parameter/reflection_murkiness = 0.24
 shader_parameter/mix_amount = 3.08
@@ -1991,8 +1991,8 @@ shape = SubResource("RectangleShape2D_thl5c")
 [node name="Sprite2D" type="Sprite2D" parent="Water/Area2D"]
 z_index = 3
 material = SubResource("ShaderMaterial_f8iwb")
-position = Vector2(2798, 2092)
-scale = Vector2(0.2732491, 0.14821424)
+position = Vector2(2798, 2070.1875)
+scale = Vector2(0.2732491, 0.103699006)
 texture = ExtResource("57_3y16o")
 script = ExtResource("58_njd7l")
 
