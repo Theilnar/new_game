@@ -1115,6 +1115,8 @@ func _find_descent_edge_x(direction: float) -> Dictionary:
 	return ledge_controller.find_descent_edge_x(direction)
 
 func _physics_process(delta: float) -> void:
+	if is_instance_valid(camera_shaker) and camera_shaker.has_method("_poll_manual_zoom_input"):
+		camera_shaker._poll_manual_zoom_input()
 	last_ground_move_time = maxf(0.0, last_ground_move_time - delta)
 	climb_box_top_lock_frames = maxi(climb_box_top_lock_frames - 1, 0)
 	if climb_box_top_lock_frames > 0:

@@ -36,6 +36,8 @@ var walk_sway_strength := 0.0
 var walk_sway_phase := 0.0
 var crouch_zoom_elapsed := 0.0
 var run_zoom_elapsed := 0.0
+var manual_zoom_in_was_pressed: bool = false
+var manual_zoom_out_was_pressed: bool = false
 
 
 func _ready() -> void:
@@ -65,43 +67,34 @@ func apply_shot_shake() -> void:
 	shot_shake_time = SHOT_SHAKE_DURATION
 
 
-func _input(event: InputEvent) -> void:
-	if not event is InputEventKey:
-		return
-
-	var key_event: InputEventKey = event as InputEventKey
-	if not key_event.pressed or key_event.echo:
-		return
-
-	var zoom_direction: float = 0.0
-	var is_minus: bool = key_event.keycode == KEY_MINUS \
-		or key_event.physical_keycode == KEY_MINUS \
-		or key_event.keycode == KEY_KP_SUBTRACT
-	var is_plus: bool = key_event.keycode == KEY_PLUS \
-		or key_event.physical_keycode == KEY_PLUS \
-		or key_event.keycode == KEY_KP_ADD \
-		or key_event.unicode == 43
-	if is_minus or key_event.unicode == 45:
-		zoom_direction = -1.0
-	elif is_plus:
-		zoom_direction = 1.0
-	elif key_event.keycode == KEY_EQUAL and key_event.shift_pressed:
-		zoom_direction = 1.0
-
-	if is_zero_approx(zoom_direction):
-		return
-
+func _apply_manual_zoom(direction: float) -> void:
 	var new_zoom: float = clampf(
-		camera_base_zoom.x + zoom_direction * MANUAL_ZOOM_STEP,
+		camera_base_zoom.x + direction * MANUAL_ZOOM_STEP,
 		MANUAL_ZOOM_MIN,
 		MANUAL_ZOOM_MAX
 	)
 	camera_base_zoom = Vector2(new_zoom, new_zoom)
 	camera.zoom = camera_base_zoom
-	get_viewport().set_input_as_handled()
+
+
+func _poll_manual_zoom_input() -> void:
+	var zoom_in_pressed: bool = Input.is_key_pressed(KEY_PLUS) \
+		or Input.is_key_pressed(KEY_KP_ADD) \
+		or (Input.is_key_pressed(KEY_EQUAL) and Input.is_key_pressed(KEY_SHIFT))
+	var zoom_out_pressed: bool = Input.is_key_pressed(KEY_MINUS) \
+		or Input.is_key_pressed(KEY_KP_SUBTRACT)
+
+	if zoom_in_pressed and not manual_zoom_in_was_pressed:
+		_apply_manual_zoom(1.0)
+	if zoom_out_pressed and not manual_zoom_out_was_pressed:
+		_apply_manual_zoom(-1.0)
+
+	manual_zoom_in_was_pressed = zoom_in_pressed
+	manual_zoom_out_was_pressed = zoom_out_pressed
 
 
 func _process(delta: float) -> void:
+	_poll_manual_zoom_input()
 	var player_body := get_parent() as CharacterBody2D
 	var horizontal_speed: float = absf(player_body.velocity.x) if is_instance_valid(player_body) else 0.0
 	var is_running: bool = is_instance_valid(player_body) and player_body.get("RUN_SPEED") == 2 and horizontal_speed > 0.0
