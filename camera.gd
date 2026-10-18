@@ -19,6 +19,9 @@ var player_run_speed
 @export var CROUCH_ZOOM_DELAY: float = 0.5
 @export var ZOOM_TRANSITION_SPEED: float = 0.6
 @export var CROUCH_ZOOM_TRANSITION_SPEED: float = 0.18
+@export var MANUAL_ZOOM_STEP: float = 0.2
+@export var MANUAL_ZOOM_MIN: float = 1.5
+@export var MANUAL_ZOOM_MAX: float = 5.0
 
 @onready var camera: Camera2D = $"../Camera2D"
 @onready var rand := RandomNumberGenerator.new()
@@ -60,6 +63,35 @@ func apply_noise_shake() -> void:
 
 func apply_shot_shake() -> void:
 	shot_shake_time = SHOT_SHAKE_DURATION
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if not event is InputEventKey:
+		return
+
+	var key_event: InputEventKey = event as InputEventKey
+	if not key_event.pressed or key_event.echo:
+		return
+
+	var zoom_direction: float = 0.0
+	if key_event.keycode == KEY_MINUS or key_event.keycode == KEY_KP_SUBTRACT:
+		zoom_direction = -1.0
+	elif key_event.keycode == KEY_PLUS or key_event.keycode == KEY_KP_ADD:
+		zoom_direction = 1.0
+	elif key_event.keycode == KEY_EQUAL and key_event.shift_pressed:
+		zoom_direction = 1.0
+
+	if is_zero_approx(zoom_direction):
+		return
+
+	var new_zoom: float = clampf(
+		camera_base_zoom.x + zoom_direction * MANUAL_ZOOM_STEP,
+		MANUAL_ZOOM_MIN,
+		MANUAL_ZOOM_MAX
+	)
+	camera_base_zoom = Vector2(new_zoom, new_zoom)
+	camera.zoom = camera_base_zoom
+	get_viewport().set_input_as_handled()
 
 
 func _process(delta: float) -> void:
