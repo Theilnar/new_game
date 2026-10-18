@@ -74,7 +74,6 @@ func _apply_manual_zoom(direction: float) -> void:
 		MANUAL_ZOOM_MAX
 	)
 	camera_base_zoom = Vector2(new_zoom, new_zoom)
-	camera.zoom = camera_base_zoom
 
 
 func _poll_manual_zoom_input() -> void:
