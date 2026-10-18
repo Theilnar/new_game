@@ -15,6 +15,8 @@ uniform float distortion_speed;
 
 uniform sampler2D fadeGradient;
 uniform vec4 water_color:source_color;
+uniform float reflection_bottom_visibility : hint_range(0.0, 1.0) = 0.22;
+uniform float reflection_murkiness : hint_range(0.0, 1.0) = 0.24;
 
 render_mode unshaded;
 
@@ -43,9 +45,13 @@ void fragment() {
 	/*COLOR = vec3(1.0, 0.0, 1.0);*/
 	/*COLOR = reflection * some_color;*/
 	/*vec4 reflection=textureLod(screen_texture,reflected,1.0);*/
-	COLOR.rgb=mix(reflection.rgb,water_color.rgb,water_color.a);
+	float depth = smoothstep(0.0, 1.0, UV.y);
+	float reflection_visibility = mix(1.0, reflection_bottom_visibility, depth);
+	float murkiness = clamp(water_color.a + depth * reflection_murkiness, 0.0, 1.0);
+	vec3 tinted_reflection = mix(reflection.rgb, water_color.rgb, murkiness);
+	COLOR.rgb = mix(water_color.rgb, tinted_reflection, reflection_visibility);
 	/*vec4 gradient= texture(fadeGradient, UV);*/
-	COLOR.a = clamp(0.72 - UV.y * 0.52, 0.18, 0.72); /* плавное затухание отражения */
+	COLOR.a = clamp(mix(0.72, 0.14, depth), 0.14, 0.72); /* отражение затухает вниз */
 
 	/*COLOR.rgb = vec3(waves);*/
   /*vec4 color = texture(TEXTURE, UV);*/
