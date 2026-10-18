@@ -65,7 +65,7 @@ func apply_shot_shake() -> void:
 	shot_shake_time = SHOT_SHAKE_DURATION
 
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if not event is InputEventKey:
 		return
 
@@ -74,9 +74,16 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 
 	var zoom_direction: float = 0.0
-	if key_event.keycode == KEY_MINUS or key_event.keycode == KEY_KP_SUBTRACT:
+	var is_minus: bool = key_event.keycode == KEY_MINUS \
+		or key_event.physical_keycode == KEY_MINUS \
+		or key_event.keycode == KEY_KP_SUBTRACT
+	var is_plus: bool = key_event.keycode == KEY_PLUS \
+		or key_event.physical_keycode == KEY_PLUS \
+		or key_event.keycode == KEY_KP_ADD \
+		or key_event.unicode == 43
+	if is_minus or key_event.unicode == 45:
 		zoom_direction = -1.0
-	elif key_event.keycode == KEY_PLUS or key_event.keycode == KEY_KP_ADD:
+	elif is_plus:
 		zoom_direction = 1.0
 	elif key_event.keycode == KEY_EQUAL and key_event.shift_pressed:
 		zoom_direction = 1.0
