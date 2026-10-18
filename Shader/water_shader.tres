@@ -1,33 +1,35 @@
-[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://lcjjy3ivnpor"]
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://lcjjy3ivnpor"]
 
-[ext_resource type="Shader" uid="uid://c8gxd20172lxd" path="res://water/water_shader.gdshader" id="1_u6dx5"]
+[ext_resource type="Shader" uid="uid://smqaemghw8fq" path="res://water/water.gdshader" id="1_vgn2c"]
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_i4iy6"]
-frequency = 0.0972
-fractal_gain = 0.635
-domain_warp_enabled = true
+[sub_resource type="Gradient" id="Gradient_vgn2c"]
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4te1q"]
-noise = SubResource("FastNoiseLite_i4iy6")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ns0d0"]
+gradient = SubResource("Gradient_vgn2c")
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_llolp"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0dlgj"]
+noise = SubResource("FastNoiseLite_llolp")
 seamless = true
-seamless_blend_skirt = 0.0
-bump_strength = 4.2
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jg2td"]
-seamless = true
+seamless_blend_skirt = 0.182
 
 [resource]
-shader = ExtResource("1_u6dx5")
-shader_parameter/level = 0.232
-shader_parameter/water_albedo = Color(0.26, 0.23, 0.73, 1)
-shader_parameter/water_opacity = 0.495
-shader_parameter/water_speed = 0.05
-shader_parameter/wave_distortion = 0.02
-shader_parameter/wave_multiplyer = 1
-shader_parameter/water_texture_on = false
-shader_parameter/reflection_X_offset = 0.0
-shader_parameter/reflection_Y_offset = 0.0
-shader_parameter/sprite_scale_y = 0.196925
-shader_parameter/noise_texture = SubResource("NoiseTexture2D_4te1q")
-shader_parameter/noise_texture2 = SubResource("NoiseTexture2D_jg2td")
-shader_parameter/speed = Vector2(0.02, 0.01)
+shader = ExtResource("1_vgn2c")
+shader_parameter/value = 3.77
+shader_parameter/scale_y = -0.21
+shader_parameter/zoom_y = 1.31
+shader_parameter/wave_amplitude = 2.18
+shader_parameter/wave_speed = 0.0
+shader_parameter/wave_period = 1.9100000000000001
+shader_parameter/noise = SubResource("NoiseTexture2D_0dlgj")
+shader_parameter/distortion_scale = Vector2(-0.08, 3.5)
+shader_parameter/distortion_intencity = 0.05
+shader_parameter/distortion_speed = 0.395
+shader_parameter/fadeGradient = SubResource("GradientTexture2D_ns0d0")
+shader_parameter/water_color = Color(0.2, 0.2784314, 0.078431375, 0.34117648)
+shader_parameter/reflection_bottom_visibility = 0.2000000095
+shader_parameter/reflection_murkiness = 0.2400000114
+shader_parameter/mix_amount = 3.0

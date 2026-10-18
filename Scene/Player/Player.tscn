@@ -4253,7 +4253,7 @@ text = "info"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -55)
-zoom = Vector2(2.4, 2.4)
+zoom = Vector2(3.4, 3.4)
 position_smoothing_enabled = true
 position_smoothing_speed = 6.0
 
@@ -4462,7 +4462,6 @@ position = Vector2(1.5258789e-05, 0)
 scale = Vector2(0.21000002, 0.21000002)
 color = Color(1, 1, 0.99514896, 1)
 energy = 3.04
-shadow_enabled = true
 texture = ExtResource("36_upabb")
 
 [connection signal="body_entered" from="Sitdown_area" to="." method="_on_sitdown_area_body_entered"]

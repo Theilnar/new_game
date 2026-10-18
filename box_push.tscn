@@ -1,4 +1,4 @@
-[gd_scene load_steps=316 format=3 uid="uid://c3x16tc7hd5f7"]
+[gd_scene load_steps=318 format=3 uid="uid://c3x16tc7hd5f7"]
 
 [ext_resource type="Texture2D" uid="uid://dlxuun4r2jtda" path="res://Sprites/background/Back/container01.png" id="1_2mecu"]
 [ext_resource type="Texture2D" uid="uid://fdf1rqoaojfg" path="res://Sprites/background/Back/container02.png" id="1_8bf5i"]
@@ -146,6 +146,7 @@
 [ext_resource type="Texture2D" uid="uid://bu5mvhvfpmfl7" path="res://Sprites/hospital/hospital_patient_room_door_closed.png" id="169_2tmso"]
 [ext_resource type="Texture2D" uid="uid://1cp1o8og8074" path="res://Sprites/hospital/hospital_interior_props_02.png" id="169_052vl"]
 [ext_resource type="Texture2D" uid="uid://br3diw13xtg6r" path="res://Sprites/hospital/hospital_overgrowth_moss_plants.png" id="169_kfwne"]
+[ext_resource type="Texture2D" uid="uid://bqwujkg7ik0y6" path="res://Sprites/hospital/hospital_flood_channel_level_background_normal.png" id="169_o4rmp"]
 [ext_resource type="Texture2D" uid="uid://c8tcjiw4s8gja" path="res://Sprites/other/PINK/Sign 17 Glow - PINK_025.png" id="169_sdi46"]
 [ext_resource type="Texture2D" uid="uid://c735a6lhx3lvp" path="res://Sprites/background/Tiles/Main.png" id="169_sg6rd"]
 [ext_resource type="Texture2D" uid="uid://45oqoxuc8bu3" path="res://Sprites/other/PINK/Sign 17 Glow - PINK_026.png" id="170_4myrt"]
@@ -383,15 +384,15 @@ shader_parameter/scale_y = -0.61
 shader_parameter/zoom_y = 0.91
 shader_parameter/wave_amplitude = 1.485
 shader_parameter/wave_speed = 0.0
-shader_parameter/wave_period = 1.91
+shader_parameter/wave_period = 1.9100000000000001
 shader_parameter/noise = SubResource("NoiseTexture2D_goin2")
 shader_parameter/distortion_scale = Vector2(1.21, 1)
-shader_parameter/distortion_intencity = 0.015
+shader_parameter/distortion_intencity = 0.025
 shader_parameter/distortion_speed = 0.13
 shader_parameter/fadeGradient = SubResource("GradientTexture2D_wdnb4")
-shader_parameter/water_color = Color(0.20, 0.28, 0.08, 0.34)
+shader_parameter/water_color = Color(0.2, 0.28, 0.08, 0.34)
 shader_parameter/reflection_bottom_visibility = 0.22
-shader_parameter/reflection_murkiness = 0.24
+shader_parameter/reflection_murkiness = 1.0
 shader_parameter/mix_amount = 3.08
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_73lsc"]
@@ -1266,6 +1267,10 @@ shader_parameter/light_position = Vector2(0, 0)
 shader_parameter/light_radius = 250.0
 shader_parameter/light_strength = 1.0
 
+[sub_resource type="CanvasTexture" id="CanvasTexture_o4rmp"]
+diffuse_texture = ExtResource("168_impac")
+normal_texture = ExtResource("169_o4rmp")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kfwne"]
 shader = ExtResource("shadow_shader")
 shader_parameter/shadow_color = Color(0, 0, 0, 0.45490196)
@@ -1612,7 +1617,7 @@ scale = Vector2(0.328125, 0.328125)
 texture = ExtResource("53_1ay1m")
 
 [node name="Sprite2D" type="Sprite2D" parent="Background/Parallax2D/ParallaxBackground/ParallaxLayer"]
-position = Vector2(704.3052, 1369.3285)
+position = Vector2(704.3052, 1370.3285)
 scale = Vector2(3.3374777, 3.3374777)
 texture = ExtResource("12_7ahax")
 
@@ -1720,12 +1725,11 @@ texture = ExtResource("28_1nkf5")
 
 [node name="StationFog" type="ColorRect" parent="Background/StationNearLitParallax2D"]
 material = SubResource("ShaderMaterial_station_fog")
-offset_left = -150.0
-offset_top = -104.0
-offset_right = 1025.0901
-offset_bottom = 736.0
+offset_left = 16.0
+offset_top = -157.0
+offset_right = 1191.0901
+offset_bottom = 683.0
 mouse_filter = 2
-metadata/_edit_lock_ = true
 
 [node name="StationMidgroundParallax2D2" type="Parallax2D" parent="Background"]
 z_index = -4
@@ -1779,6 +1783,7 @@ scale = Vector2(0.46283826, 0.46283826)
 texture = ExtResource("station_near_lit_continuation_texture")
 
 [node name="FogLight2" type="PointLight2D" parent="."]
+visible = false
 z_index = -4
 position = Vector2(1414.0001, -31)
 scale = Vector2(0.46283826, 0.46283826)
@@ -1796,7 +1801,7 @@ position = Vector2(1366, -92)
 
 [node name="Zombie" parent="Mobs" instance=ExtResource("23_p2lg8")]
 z_index = 2
-position = Vector2(1600, 1838)
+position = Vector2(1272, 420)
 
 [node name="Zombie2" parent="Mobs" instance=ExtResource("23_p2lg8")]
 position = Vector2(914, 290)
@@ -1991,15 +1996,15 @@ shape = SubResource("RectangleShape2D_thl5c")
 [node name="Sprite2D" type="Sprite2D" parent="Water/Area2D"]
 z_index = 3
 material = SubResource("ShaderMaterial_f8iwb")
-position = Vector2(2798, 2070.1875)
-scale = Vector2(0.2732491, 0.103699006)
+position = Vector2(2425, 2073)
+scale = Vector2(0.6021814, 0.103699006)
 texture = ExtResource("57_3y16o")
 script = ExtResource("58_njd7l")
 
 [node name="water" type="Sprite2D" parent="Water/Area2D"]
 z_index = 3
 material = ExtResource("59_okrbg")
-position = Vector2(2266, 2071.5)
+position = Vector2(2569, 1101)
 scale = Vector2(0.34270948, 0.23775521)
 texture = ExtResource("57_3y16o")
 script = ExtResource("61_jjanr")
@@ -2078,6 +2083,36 @@ position = Vector2(6629.2617, 14651.226)
 scale = Vector2(2.529879, 2.529879)
 color = Color(1, 1, 0.90982777, 1)
 energy = 2.46
+shadow_enabled = true
+texture = ExtResource("70_fog_light")
+texture_scale = 1.55
+script = ExtResource("71_fog_light")
+
+[node name="FogLight7" type="PointLight2D" parent="Light_room"]
+position = Vector2(19486.69, 16500.734)
+scale = Vector2(1.2559577, 1.2559577)
+color = Color(1, 1, 0.90982777, 1)
+energy = 14.95
+shadow_enabled = true
+texture = ExtResource("70_fog_light")
+texture_scale = 1.55
+script = ExtResource("71_fog_light")
+
+[node name="FogLight8" type="PointLight2D" parent="Light_room"]
+position = Vector2(22160.676, 16545.3)
+scale = Vector2(2.586749, 2.586749)
+color = Color(1, 1, 0.90982777, 1)
+energy = 14.88
+shadow_enabled = true
+texture = ExtResource("70_fog_light")
+texture_scale = 1.55
+script = ExtResource("71_fog_light")
+
+[node name="FogLight9" type="PointLight2D" parent="Light_room"]
+position = Vector2(24879.23, 16500.734)
+scale = Vector2(1.2559577, 1.2559577)
+color = Color(1, 1, 0.90982777, 1)
+energy = 12.4
 shadow_enabled = true
 texture = ExtResource("70_fog_light")
 texture_scale = 1.55
@@ -2172,7 +2207,7 @@ scale = Vector2(-0.538453, 0.538453)
 texture = ExtResource("66_2we1w")
 
 [node name="Start_position" type="Marker2D" parent="."]
-position = Vector2(1042, 1762)
+position = Vector2(1999, 1943)
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Start_position"]
@@ -2514,6 +2549,7 @@ position = Vector2(989.4131, 1780.4858)
 scale = Vector2(0.24282162, 0.2097889)
 texture = ExtResource("168_sitdn")
 region_rect = Rect2(846, 0, 423, 395)
+metadata/_edit_lock_ = true
 
 [node name="Sprite2D79" type="Sprite2D" parent="hospital"]
 z_index = -4
@@ -2521,13 +2557,15 @@ position = Vector2(1491.4131, 1780.4858)
 scale = Vector2(0.24282162, 0.2097889)
 texture = ExtResource("168_sitdn")
 region_rect = Rect2(846, 0, 423, 395)
+metadata/_edit_lock_ = true
 
 [node name="Sprite2D80" type="Sprite2D" parent="hospital"]
 z_index = -4
 position = Vector2(2501.0002, 1866)
 scale = Vector2(0.7105758, 0.6139113)
-texture = ExtResource("168_impac")
+texture = SubResource("CanvasTexture_o4rmp")
 region_rect = Rect2(846, 0, 423, 395)
+metadata/_edit_lock_ = true
 
 [node name="Sprite2D60" type="Sprite2D" parent="hospital"]
 z_index = -1
@@ -2744,7 +2782,7 @@ region_rect = Rect2(846, 0, 423, 395)
 
 [node name="Sprite2D47" type="Sprite2D" parent="hospital"]
 z_index = -1
-position = Vector2(1597, 1841)
+position = Vector2(2277, 1982)
 scale = Vector2(0.13577087, 0.14713648)
 texture = ExtResource("167_mpu5m")
 region_enabled = true
@@ -2847,8 +2885,7 @@ shape = SubResource("RectangleShape2D_sitdn")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="hospital_wall/StaticBody2D"]
 position = Vector2(-5, 44)
-polygon = PackedVector2Array(1740, 1839, 1999, 1973, 2419, 1973, 2746, 1971, 3023, 1974, 3214, 1857, 3342, 1842, 3301, 2129, 1715, 2086)
-metadata/_edit_lock_ = true
+polygon = PackedVector2Array(1740, 1839, 1998, 1967, 3025, 1967, 3214, 1857, 3342, 1842, 3301, 2129, 3050, 1989, 2887, 1989, 1874, 2040)
 
 [connection signal="body_entered" from="Platform/Visibility/Area2D" to="Platform/Visibility" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Platform/Visibility/Area2D" to="Platform/Visibility" method="_on_area_2d_body_exited"]
