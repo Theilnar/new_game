@@ -33,7 +33,11 @@ void fragment() {
 	float waves = UV.y + sin(UV.x / wave_period + TIME + wave_speed) * wave_amplitude;
 	float uv_height = SCREEN_PIXEL_SIZE.y / TEXTURE_PIXEL_SIZE.y;
 	float distortion = (textureLod(noise, UV * distortion_scale + wave * distortion_speed, 0.0).x -0.5) * distortion_intencity;
-	vec2 reflection_screen_uv =	vec2(SCREEN_UV.x - distortion, SCREEN_UV.y + uv_height * UV.y * scale_y);
+	// Reflect the scene around the water surface (UV.y == 0), not around
+	// the screen centre. MODEL_MATRIX accounts for the Sprite2D scale.
+	float sprite_scale_y = abs(MODEL_MATRIX[1].y);
+	float reflection_offset = uv_height * UV.y * 2.0 * sprite_scale_y;
+	vec2 reflection_screen_uv = vec2(SCREEN_UV.x - distortion, SCREEN_UV.y - reflection_offset);
 	vec4 reflection = textureLod(screen_texture, reflection_screen_uv, 0.0);
 	/*COLOR.rgb = mix(reflection.rgb, water_color.rgb, water_color.a);*/
 	/*COLOR = vec3(1.0, 0.0, 1.0);*/
@@ -41,7 +45,7 @@ void fragment() {
 	/*vec4 reflection=textureLod(screen_texture,reflected,1.0);*/
 	COLOR.rgb=mix(reflection.rgb,water_color.rgb,water_color.a);
 	/*vec4 gradient= texture(fadeGradient, UV);*/
-	COLOR.a = 0.8 - UV.y; /*градиент альфа канала*/
+	COLOR.a = clamp(0.72 - UV.y * 0.52, 0.18, 0.72); /* плавное затухание отражения */
 
 	/*COLOR.rgb = vec3(waves);*/
   /*vec4 color = texture(TEXTURE, UV);*/

@@ -49,8 +49,13 @@ void fragment() {
 	//	COLOR = sprite;
 		
 		// putting everything toghether 
-		vec4 current_texture = texture(screen_texture, vec2(SCREEN_UV.x + noise + reflection_X_offset, 1.0 - SCREEN_UV.y - (level - 0.5) * 2.0 + reflection_Y_offset));
-		/*vec4 current_texture = texture(screen_texture, vec2(SCREEN_UV.x + noise + reflection_X_offset, 1.0 - SCREEN_UV.y - (level - 0.5) * 2.0 + reflection_Y_offset));*/
+		// Mirror the pixels above the top edge of this Sprite2D. The old
+		// formula mirrored around the screen centre, which made the water
+		// reflection appear detached from the surface.
+		float sprite_scale_y = abs(MODEL_MATRIX[1].y);
+		float sprite_screen_height = sprite_scale_y / TEXTURE_PIXEL_SIZE.y;
+		float reflection_offset = 2.0 * uv.y * sprite_screen_height * SCREEN_PIXEL_SIZE.y;
+		vec4 current_texture = texture(screen_texture, vec2(SCREEN_UV.x + noise + reflection_X_offset, SCREEN_UV.y - reflection_offset + reflection_Y_offset));
 		COLOR = mix(COLOR, current_texture,0.5);
 		COLOR = mix(COLOR, water_albedo, water_opacity);
 		COLOR.a = 0.8 - UV.y; /*градиент альфа канала*/
