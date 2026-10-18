@@ -27,6 +27,7 @@ shader_parameter/wave_multiplyer = 1
 shader_parameter/water_texture_on = false
 shader_parameter/reflection_X_offset = 0.0
 shader_parameter/reflection_Y_offset = 0.0
+shader_parameter/sprite_scale_y = 0.196925
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_4te1q")
 shader_parameter/noise_texture2 = SubResource("NoiseTexture2D_jg2td")
 shader_parameter/speed = Vector2(0.02, 0.01)

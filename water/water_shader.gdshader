@@ -9,6 +9,7 @@ uniform int wave_multiplyer = 7;
 uniform bool water_texture_on = true;
 uniform float reflection_X_offset = 0.0;
 uniform float reflection_Y_offset = 0.0;
+uniform float sprite_scale_y = 1.0;
 uniform sampler2D noise_texture : hint_normal;
 uniform sampler2D noise_texture2 : hint_normal;
 
@@ -52,7 +53,6 @@ void fragment() {
 		// Mirror the pixels above the top edge of this Sprite2D. The old
 		// formula mirrored around the screen centre, which made the water
 		// reflection appear detached from the surface.
-		float sprite_scale_y = abs(MODEL_MATRIX[1].y);
 		float sprite_screen_height = sprite_scale_y / TEXTURE_PIXEL_SIZE.y;
 		float distance_from_surface = max(uv.y - level, 0.0);
 		float reflection_offset = 2.0 * distance_from_surface * sprite_screen_height * SCREEN_PIXEL_SIZE.y;

@@ -34,8 +34,8 @@ void fragment() {
 	float uv_height = SCREEN_PIXEL_SIZE.y / TEXTURE_PIXEL_SIZE.y;
 	float distortion = (textureLod(noise, UV * distortion_scale + wave * distortion_speed, 0.0).x -0.5) * distortion_intencity;
 	// Reflect the scene around the water surface (UV.y == 0), not around
-	// the screen centre. MODEL_MATRIX accounts for the Sprite2D scale.
-	float sprite_scale_y = abs(MODEL_MATRIX[1].y);
+	// the screen centre. scale_y is supplied by the water Sprite2D material.
+	float sprite_scale_y = abs(scale_y);
 	float reflection_offset = uv_height * UV.y * 2.0 * sprite_scale_y;
 	vec2 reflection_screen_uv = vec2(SCREEN_UV.x - distortion, SCREEN_UV.y - reflection_offset);
 	vec4 reflection = textureLod(screen_texture, reflection_screen_uv, 0.0);
